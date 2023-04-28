@@ -1,0 +1,33 @@
+{
+    "name": "rd-component",
+    "type": "module",
+    "version": "0.1.5",
+    "source": "src/index.ts",
+    "files": [
+        "dist"
+    ],
+    "exports": {
+        "require": "./dist/rdc.cjs",
+        "default": "./dist/rdc.modern.js",
+        "types": "./dist/rdc.d.ts"
+    },
+    "main": "./dist/rdc.cjs",
+    "module": "./dist/rdc.module.js",
+    "unpkg": "./dist/rdc.umd.js",
+    "scripts": {
+        "build": "microbundle",
+        "dev": "microbundle watch"
+    },
+    "devDependencies": {
+        "@types/react": "^18.2.0",
+        "microbundle": "^0.15.1",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-redux": "^8.0.5",
+        "redux": "^4.2.1",
+        "redux-logger": "^3.0.6",
+        "axios": "^1.3.4",
+        "js-wheel": "https://github.com/jiangxiaoqiang/js-wheel.git",
+        "uuid": "^9.0.0"
+    }
+}
