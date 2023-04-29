@@ -2,9 +2,9 @@ import { combineReducers } from 'redux';
 import pay from '@/reducer/pay/PayReducer';
 import iapproduct from '@/reducer/iapproduct/IapProductReducer';
 
-const rootReducer = combineReducers({
+const rdRootReducer = combineReducers({
   pay,
   iapproduct
 })
 
-export default rootReducer;
+export default rdRootReducer;

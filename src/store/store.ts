@@ -1,5 +1,5 @@
 
-import { configureStore } from '@reduxjs/toolkit';
+import { Store, configureStore } from '@reduxjs/toolkit';
 import rootReducer from '@/common/combineReducer';
 import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
@@ -9,7 +9,7 @@ const initialState = {
    
 };
 
-const store = configureStore({
+const store:Store = configureStore({
     reducer: rootReducer,
     middleware: [logger, thunk],
     devTools: process.env.NODE_ENV !== 'production',
