@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "build",
+    "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"]
@@ -11,6 +11,7 @@
       "dom.iterable",
       "esnext"
     ],
+    "declaration": true,
     "allowJs": false,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -23,7 +24,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "jsxFactory": "",
+    "jsxFragmentFactory": ""
   },
   "include": [
     "src"

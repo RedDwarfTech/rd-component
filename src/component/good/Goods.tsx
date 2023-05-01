@@ -11,9 +11,11 @@ import React from "react";
 import { v4 as uuid } from 'uuid';
 import withConnect from "@/component/hoc/withConnect";
 import { doPay } from "@/service/pay/PayService";
+import { AnyAction, Store } from "redux";
 
 interface IGoodsProp {
   appId: string;
+  store: Store<any, AnyAction>;
 }
 
 const Goods: React.FC<IGoodsProp> = (props: any) => {
@@ -40,17 +42,14 @@ const Goods: React.FC<IGoodsProp> = (props: any) => {
   }, [formText]);
 
   const getGoods = (appId: string) => {
-    const req: ProductReq = {
-      appId: appId
-    };
-    doGetIapProduct(req);
+    doGetIapProduct(props.store);
   }
 
   const handlePay = (row: any) => {
     let param = {
       productId: Number(row.id)
     };
-    doPay(param);
+    doPay(param, props.store);
   };
 
   const productSubMenu = (serverDataSource: IapProduct[]) => {

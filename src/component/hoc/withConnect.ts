@@ -1,8 +1,7 @@
-import { AppState } from '@/models/types/AppState';
 import { connect } from 'react-redux';
 
-const mapStateToProps = (state: AppState) => ({
-  robot: state.robot,
+const mapStateToProps = (state: any) => ({
+  
 });
 
 const mapDispatchToProps = (dispatch: any) => ({});
