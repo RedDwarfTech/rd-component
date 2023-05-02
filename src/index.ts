@@ -15,6 +15,8 @@ import { doGetIapProduct } from "./service/goods/GoodsService";
 import PayService, { doPay } from "./service/pay/PayService";
 import { IOrder } from "./models/pay/IOrder";
 import UserService from "./service/user/UserService";
+import { IUploadedFile } from "./models/file/IUploadedFile";
+import { fileAction } from "./action/file/FileAction";
 
 export {
     CommonPage,
@@ -35,4 +37,11 @@ export {
     UserService
 };
 
-export type { userAction, payAction,IapProduct,IOrder };
+export type { 
+    userAction, 
+    payAction,
+    IapProduct,
+    IOrder,
+    IUploadedFile,
+    fileAction
+ };
