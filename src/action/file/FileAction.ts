@@ -1,9 +1,10 @@
-import { IUploadedFile } from "@/models/file/IUploadedFile";
-
-export type fileAction = uploadFileAction;
+export type fileAction = uploadFileAction | downloadFileAction | fileClearAction | fileRemBgAction;
 
 export enum FileActionType {
     UPLOAD_FILE,
+    DOWNLOAD_FILE,
+    FILE_CLEAR,
+    FILE_REMOVE_BG
 }
 
 export interface uploadFileAction {
@@ -11,30 +12,17 @@ export interface uploadFileAction {
     data: any;
 }
 
-export function fileAction(data: IUploadedFile) {
-    return {
-        type: "UPLOAD_FILE",
-        file: data
-    };
+export interface downloadFileAction {
+    type: FileActionType.UPLOAD_FILE;
+    data: any;
 }
 
-export function fileDownloadAction(data: any) {
-    return {
-        type: "DOWNLOAD_FILE",
-        file: data
-    };
+export interface fileClearAction {
+    type: FileActionType.FILE_CLEAR;
+    data: any;
 }
 
-export function fileClearAction(data: any) {
-    return {
-        type: "FILE_CLEAR",
-        file: data
-    };
-}
-
-export function fileRemBgAction(data: any) {
-    return {
-        type: "FILE_REMOVE_BG",
-        file: data
-    };
+export interface fileRemBgAction {
+    type: FileActionType.FILE_REMOVE_BG;
+    data: any;
 }

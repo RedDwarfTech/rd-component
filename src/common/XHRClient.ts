@@ -30,7 +30,8 @@ export const addRequiredHeaders = (store: Store<any, AnyAction>) => {
       pendingRequestsQueue.push(originalRequest);
     }
     if (!isRefreshing) {
-      if (response.data.resultCode === ResponseCode.ACCESS_TOKEN_EXPIRED) {
+      if (response.data.resultCode === ResponseCode.ACCESS_TOKEN_EXPIRED
+        || response.data.resultCode === ResponseCode.ACCESS_TOKEN_INVALID) {
         pendingRequestsQueue.push(originalRequest);
         isRefreshing = true;
         // refresh the access token
@@ -67,10 +68,10 @@ export function requestWithAction(config: any, action: any, store: Store<any, An
   config.headers['x-action'] = actionJson;
   addRequiredHeaders(store);
   return instance(config).then((response: { data: { result: any; }; }) => {
-      const data = response.data.result;
-      store.dispatch(action(data));
-      return response.data;
-    }
+    const data = response.data.result;
+    store.dispatch(action(data));
+    return response.data;
+  }
   ).catch(
     (error: any) => {
       console.error(error);
@@ -78,20 +79,23 @@ export function requestWithAction(config: any, action: any, store: Store<any, An
   );
 }
 
-export function requestWithActionType(config: any, actionType: string,store: Store<any, AnyAction>) {
-  config.headers['x-action'] = actionType;
+export function requestWithActionType(config: any, actionType: string, store: Store<any, AnyAction>) {
+  const generalHeader = {
+    'x-action': actionType
+  };
+  config.headers = Object.assign({}, config.headers, generalHeader);
   addRequiredHeaders(store);
   return instance(config).then((response: { data: { result: any; }; }) => {
-      const data = response.data.result;
-      const localAction = {
-        type: actionType,
-        data: data
-      };
-      store.dispatch(localAction);
-      return response.data;
-    }
+    const data = response.data.result;
+    const localAction = {
+      type: actionType,
+      data: data
+    };
+    store.dispatch(localAction);
+    return response.data;
+  }
   ).catch((error: any) => {
-      console.error(error);
-    }
+    console.error(error);
+  }
   );
 }

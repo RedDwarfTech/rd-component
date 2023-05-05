@@ -1,9 +1,5 @@
 const initState = {
     file: {
-        id: 0,
-        file_id: '',
-        created_time: 0,
-        watermark_path: ''
     },
     downloadfile: {},
     rembgfile: {}
@@ -14,12 +10,12 @@ const FileReducer = (state=initState, action: any) => {
         case "UPLOAD_FILE":
             return {
                 ...state,
-                file: action.file 
+                file: action.data 
             };
         case "DOWNLOAD_FILE":
             return {
                 ...state,
-                downloadfile: action.file 
+                downloadfile: action.data 
             };
         case "FILE_CLEAR":
             return {
@@ -31,7 +27,7 @@ const FileReducer = (state=initState, action: any) => {
         case "FILE_REMOVE_BG":
             return {
                 ...state,
-                rembgfile: action.file
+                rembgfile: action.data
             }
         default:
             break;

@@ -16,7 +16,8 @@ import PayService, { doPay } from "./service/pay/PayService";
 import { IOrder } from "./models/pay/IOrder";
 import UserService from "./service/user/UserService";
 import { IUploadedFile } from "./models/file/IUploadedFile";
-import { fileAction } from "./action/file/FileAction";
+import { fileAction, FileActionType } from "./action/file/FileAction";
+import MessageHandler from "./common/util/MessageHandler";
 
 export {
     CommonPage,
@@ -34,7 +35,9 @@ export {
     doGetIapProduct,
     doPay,
     PayService,
-    UserService
+    UserService,
+    FileActionType,
+    MessageHandler
 };
 
 export type { 
