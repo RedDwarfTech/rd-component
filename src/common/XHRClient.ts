@@ -1,6 +1,6 @@
 import axios, { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import { v4 as uuid } from 'uuid';
-import { ResponseCode, ResponseHandler, WheelGlobal } from 'js-wheel';
+import { RequestHandler, ResponseCode, WheelGlobal } from 'js-wheel';
 import { AnyAction, Store } from 'redux';
 
 let isRefreshing = false
@@ -35,7 +35,7 @@ export const addRequiredHeaders = (store: Store<any, AnyAction>) => {
         pendingRequestsQueue.push(originalRequest);
         isRefreshing = true;
         // refresh the access token
-        ResponseHandler.handleWebCommonFailure(response.data)
+        RequestHandler.handleWebAccessTokenExpire()
           .then((data: any) => {
             isRefreshing = false;
             pendingRequestsQueue.forEach((request) => {
