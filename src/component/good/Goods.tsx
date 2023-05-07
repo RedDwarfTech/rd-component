@@ -1,7 +1,5 @@
 import { useSelector } from "react-redux";
 import "./Goods.css"
-import Pay from "@/component/pay/Pay";
-import { ProductReq } from "js-wheel/dist/src/model/product/ProductReq";
 import { doGetIapProduct } from "@/service/goods/GoodsService";
 import { useState } from "react";
 import BaseMethods from "js-wheel/dist/src/utils/data/BaseMethods";
@@ -89,7 +87,7 @@ const Goods: React.FC<IGoodsProp> = (props: any) => {
         {productSubMenu(products)}
       </div>
       <Divider></Divider>
-      <Pay payFormText={payFrame}></Pay>
+      {/**<Pay payFormText={payFrame}></Pay>**/}
     </div>
   );
 }

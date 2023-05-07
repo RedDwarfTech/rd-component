@@ -18,6 +18,7 @@ import UserService from "./service/user/UserService";
 import { IUploadedFile } from "./models/file/IUploadedFile";
 import { fileAction, FileActionType } from "./action/file/FileAction";
 import MessageHandler from "./common/util/MessageHandler";
+import OrderService from "./service/order/OrderService";
 
 export {
     CommonPage,
@@ -37,7 +38,8 @@ export {
     PayService,
     UserService,
     FileActionType,
-    MessageHandler
+    MessageHandler,
+    OrderService,
 };
 
 export type { 

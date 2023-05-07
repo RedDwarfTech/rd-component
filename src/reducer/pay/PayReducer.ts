@@ -1,6 +1,6 @@
 
 const initState = {
-    formText: "",
+    createdOrder: {},
     order: {}
 };
 
@@ -9,12 +9,12 @@ const PayReducer = (state = initState, action: any) => {
         case "CREATE_ORDER":
             return {
                 ...state,
-                formText: action.data
+                createdOrder: action.data
             };
         case "CLEAR_ALIPAY_FORM_TEXT":
             return {
                 ...state,
-                formText: ""
+                createdOrder: ""
             };
         case "SET_PAYED_ORDER_INFO":
             return {
