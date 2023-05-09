@@ -1,10 +1,11 @@
 import React from "react";
-import "./Pay.css"
+import "./Pay.css";
 
 export type PayProps = {
   payFormText: string;
   price: string;
   payProvider: string;
+  onPayComplete: () => void;
 };
 
 const Pay: React.FC<PayProps> = (props) => {
@@ -33,7 +34,7 @@ const Pay: React.FC<PayProps> = (props) => {
   return (
     <div>
       <div id="pay-mask" className="pay-mask"></div>
-      <div id="pay-popup" className="popup">
+      <div id="pay-popup" className="pay-pop">
         <div className="pay-container" id="main">
           <div className="pay-money">支付金额&nbsp;&nbsp;<span id="pay_price">{priceText}元</span></div>
           <div>
@@ -50,6 +51,7 @@ const Pay: React.FC<PayProps> = (props) => {
               src="/addons/zzzy_idcard_pc/core/web/statics/images/site/icon-wechat.png"
               alt="" />{payProvider}扫码支付
           </p>
+          <button className="pay-complete-btn" onClick={props.onPayComplete}>支付完成</button>
         </div>
       </div>
     </div>
