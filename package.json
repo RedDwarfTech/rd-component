@@ -1,18 +1,17 @@
 {
     "name": "rd-component",
-    "version": "0.1.52",
+    "version": "0.1.53",
     "type": "module",
     "description": "Reddwarf public component lib",
     "files": [
         "dist"
     ],
-    "main": "./dist/rd-component.umd.js",
+    "main": "./dist/rd-component.es.js",
     "module": "./dist/rd-component.es.js",
     "exports": {
         ".": {
             "types": "./dist/index.d.ts", 
-            "import": "./dist/rd-component.es.js",
-            "require": "./dist/rd-component.umd.js"
+            "import": "./dist/rd-component.es.js"
         },
         "./dist/style.css": {
             "import": "./dist/style.css",

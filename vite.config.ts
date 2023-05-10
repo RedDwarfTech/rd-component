@@ -18,7 +18,7 @@ export default defineConfig({
         lib: {
             entry: resolve(__dirname, 'src/index.ts'),
             name: 'rd-component',
-            formats: ['es', 'umd'],
+            formats: ['es'],
             fileName: (format) => `rd-component.${format}.js`
         },
         sourcemap: true,

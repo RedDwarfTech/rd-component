@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "typeRoots": [
+      "./typings"
+    ],
     "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
@@ -27,6 +30,6 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src","typings.d.ts"
+    "src","typings/typings.d.ts"
   ]
 }
