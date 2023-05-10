@@ -1,6 +1,6 @@
 {
     "name": "rd-component",
-    "version": "0.1.48",
+    "version": "0.1.50",
     "type": "module",
     "description": "Reddwarf public component lib",
     "files": [
@@ -21,7 +21,7 @@
     },
     "scripts": {
         "dev": "vite",
-        "build": "tsc && vite build",
+        "build": "tsc && vite build --mode production",
         "watch": "vite build --watch",
         "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
         "preview": "vite preview"
@@ -44,6 +44,10 @@
         "@reduxjs/toolkit": "^1.9.5",
         "@vitejs/plugin-react": "^4.0.0",
         "antd": "^5.4.6",
-        "vite-plugin-dts": "^2.3.0"
+        "vite-plugin-dts": "^2.3.0",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "@types/react": "^18.2.0",
+        "@types/redux-logger": "^3.0.9"
     }
 }

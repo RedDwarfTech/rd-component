@@ -24,9 +24,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": false,
-    "jsx": "react-jsx",
-    "jsxFactory": "",
-    "jsxFragmentFactory": ""
+    "jsx": "react-jsx"
   },
   "include": [
     "src" ]

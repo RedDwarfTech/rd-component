@@ -12,7 +12,7 @@ export default defineConfig({
         }),
         dts({
             insertTypesEntry: true,
-        }),
+        })
     ],
     build: {
         lib: {
