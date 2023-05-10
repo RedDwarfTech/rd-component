@@ -1,6 +1,6 @@
 {
     "name": "rd-component",
-    "version": "0.1.50",
+    "version": "0.1.51",
     "type": "module",
     "description": "Reddwarf public component lib",
     "files": [
@@ -21,7 +21,7 @@
     },
     "scripts": {
         "dev": "vite",
-        "build": "tsc && vite build --mode production",
+        "build": "export NODE_ENV=production && tsc && vite build --mode production",
         "watch": "vite build --watch",
         "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
         "preview": "vite preview"
