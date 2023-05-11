@@ -19,11 +19,13 @@ import { IUploadedFile } from "./models/file/IUploadedFile";
 import { fileAction, FileActionType } from "./action/file/FileAction";
 import MessageHandler from "./common/util/MessageHandler";
 import OrderService from "./service/order/OrderService";
+import PaySuccess from "./component/pay/success/PaySuccess";
 
 export {
     CommonPage,
     Goods,
     Pay,
+    PaySuccess,
     rdRootReducer,
     CommonPageFunction,
     CommonPageCon,
