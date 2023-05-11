@@ -1,5 +1,3 @@
-import withConnect from "../hoc/withConnect";
-
 const CommonPageCon: React.FC = () => {
   return (
     <div>
@@ -8,4 +6,4 @@ const CommonPageCon: React.FC = () => {
   );
 };
 
-export default withConnect(CommonPageCon);
+export default CommonPageCon;

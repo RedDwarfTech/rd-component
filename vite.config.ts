@@ -21,6 +21,7 @@ export default defineConfig({
             formats: ['es'],
             fileName: (format) => `rd-component.${format}.js`
         },
+        assetsDir: 'src/assets',
         sourcemap: true,
         rollupOptions: {
             external: ['react', 'react-dom', 'styled-components'],

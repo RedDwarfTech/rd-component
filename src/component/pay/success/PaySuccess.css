@@ -1,0 +1,22 @@
+.pay-success-body {
+    width: 200px;
+    height: 200px;
+}
+
+.pay-success-indicator {
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pay-success-indicator img {
+    width: 100px;
+    height: 100px;
+}
+
+.pay-success-tip {
+    font-size: 18px;
+    margin-top: 40px;
+    text-align: center;
+}

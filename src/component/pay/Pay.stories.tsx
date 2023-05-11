@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import Pay from './Pay';
 
 const meta: Meta<typeof Pay> = {
-  title: 'Pay',
+  title: 'Pay/Pay',
   component: Pay,
 };
 
