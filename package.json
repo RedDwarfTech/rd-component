@@ -1,6 +1,6 @@
 {
     "name": "rd-component",
-    "version": "0.1.56",
+    "version": "0.1.57",
     "type": "module",
     "description": "Reddwarf public component lib",
     "files": [
@@ -8,6 +8,7 @@
     ],
     "main": "./dist/rd-component.es.js",
     "module": "./dist/rd-component.es.js",
+    "types": "./dist/index.d.ts",
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",

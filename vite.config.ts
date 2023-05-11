@@ -18,7 +18,7 @@ export default defineConfig({
         lib: {
             entry: resolve(__dirname, 'src/index.ts'),
             name: 'rd-component',
-            formats: ['es'],
+            formats: ['es','umd'],
             fileName: (format) => `rd-component.${format}.js`
         },
         assetsDir: 'src/assets',
@@ -30,7 +30,7 @@ export default defineConfig({
                     react: 'React',
                     'react-dom': 'ReactDOM',
                     'styled-components': 'styled',
-                },
+                }
             },
         },
     },
