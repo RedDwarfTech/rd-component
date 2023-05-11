@@ -64,10 +64,17 @@ iframe {
   z-index: 101;
   overflow: auto;
   display: none;
+  border-radius: 5px;
 }
 
 .pay-pop .pay-container {
   padding: 20px;
+}
+
+.pay-complete-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .pay-complete-btn {
@@ -79,5 +86,5 @@ iframe {
   border: 0;
   width: 120px;
   height: 40px;
-  margin-top: 35px;
+  margin-top: 15px;
 }

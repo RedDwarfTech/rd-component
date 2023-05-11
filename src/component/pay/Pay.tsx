@@ -51,7 +51,9 @@ const Pay: React.FC<PayProps> = (props) => {
               src="/addons/zzzy_idcard_pc/core/web/statics/images/site/icon-wechat.png"
               alt="" />{payProvider}扫码支付
           </p>
-          <button className="pay-complete-btn" onClick={props.onPayComplete}>支付完成</button>
+          <div className="pay-complete-action">
+            <button className="pay-complete-btn" onClick={props.onPayComplete}>支付完成</button>
+          </div>
         </div>
       </div>
     </div>
