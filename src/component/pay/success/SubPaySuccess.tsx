@@ -1,13 +1,17 @@
 import paySuccessIcon from "../../../assets/icons/pay/pay-success.png";
 import "./PaySuccess.css";
-import { useLocation } from 'react-router-dom';
+import { Location } from 'react-router-dom';
 import queryString from 'query-string';
 import UserService from "@/service/user/UserService";
 import { RequestHandler, ResponseHandler } from "js-wheel";
 
-const SubPaySuccess: React.FC = () => {
+export type ISubPaySuccProp = {
+    location: Location;
+}
 
-    const location = useLocation();
+const SubPaySuccess: React.FC<ISubPaySuccProp> = (props: ISubPaySuccProp) => {
+
+    const location: Location = props.location;
     if (location.search == null) {
         return (<div className="pay-success-body">
             <h1>支付失败！</h1>
