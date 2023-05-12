@@ -64,6 +64,7 @@
         "@reduxjs/toolkit": "^1.9.5",
         "@types/react": "^18.2.0",
         "@types/redux-logger": "^3.0.9",
+        "@types/uuid": "^9.0.1",
         "@vitejs/plugin-react": "^4.0.0",
         "addon-redux": "^2.0.11",
         "antd": "^5.4.6",
@@ -75,7 +76,7 @@
         "react-router-dom": "^6.11.1",
         "storybook": "^7.0.10",
         "ts-jest": "^29.1.0",
-        "vite-plugin-dts": "^2.3.0",
-        "uuid": "^9.0.0"
+        "uuid": "^9.0.0",
+        "vite-plugin-dts": "^2.3.0"
     }
 }

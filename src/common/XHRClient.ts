@@ -1,5 +1,5 @@
 import axios, { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-import { v4 as uuid } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import { RequestHandler, ResponseCode, WheelGlobal } from 'js-wheel';
 import { AnyAction, Store } from 'redux';
 
@@ -16,7 +16,7 @@ export const addRequiredHeaders = (store: Store<any, AnyAction>) => {
   instance.interceptors.request.use((request) => {
     const accessToken = localStorage.getItem(WheelGlobal.ACCESS_TOKEN_NAME);
     accessToken && (request.headers['x-access-token'] = accessToken);
-    request.headers['x-request-id'] = uuid();
+    request.headers['x-request-id'] = uuidv4();
     return request
   },
     (error: any) => {
@@ -41,7 +41,7 @@ export const addRequiredHeaders = (store: Store<any, AnyAction>) => {
             pendingRequestsQueue.forEach((request) => {
               const accessToken = localStorage.getItem(WheelGlobal.ACCESS_TOKEN_NAME);
               request.headers['x-access-token'] = accessToken;
-              request.headers['x-request-id'] = uuid();
+              request.headers['x-request-id'] = uuidv4();
               instance(request).then((resp: any) => {
                 const actionType = response.config.headers['x-action'];
                 const data = resp.data.result;
