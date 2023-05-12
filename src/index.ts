@@ -20,12 +20,14 @@ import { fileAction, FileActionType } from "./action/file/FileAction";
 import MessageHandler from "./common/util/MessageHandler";
 import OrderService from "./service/order/OrderService";
 import PaySuccess from "./component/pay/success/PaySuccess";
+import SubPaySuccess from "./component/pay/success/SubPaySuccess";
 
 export {
     CommonPage,
     Goods,
     Pay,
     PaySuccess,
+    SubPaySuccess,
     rdRootReducer,
     CommonPageFunction,
     CommonPageCon,
