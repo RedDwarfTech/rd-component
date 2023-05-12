@@ -2,8 +2,10 @@ import paySuccessIcon from "../../../assets/icons/pay/pay-success.png";
 import "./PaySuccess.css";
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
+import UserService from "@/service/user/UserService";
+import { RequestHandler, ResponseHandler } from "js-wheel";
 
-const PaySuccess: React.FC = () => {
+const SubPaySuccess: React.FC = () => {
 
     const location = useLocation();
     if (location.search == null) {
@@ -16,6 +18,12 @@ const PaySuccess: React.FC = () => {
     // 现代浏览器已经不再需要将 & 编码为 &amp;，但一些较旧版本的浏览器和遗留系统可能仍然需要这样做。
     const parsed = queryString.parse(location.search.replace(/&amp;/g, '&'));
     if (parsed != null && parsed.orderId && parsed.payAmount) {
+        UserService.getCurrUser().then((data: any) => {
+            if (ResponseHandler.responseSuccess(data)) {
+                localStorage.setItem("userInfo", JSON.stringify(data.result));
+                RequestHandler.handleWebAccessTokenExpire();
+            }
+        });
         return (
             <div className="pay-success-body">
                 <div className="pay-success-indicator">
@@ -31,4 +39,4 @@ const PaySuccess: React.FC = () => {
     }
 }
 
-export default PaySuccess;
+export default SubPaySuccess;
