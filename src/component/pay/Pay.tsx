@@ -41,7 +41,7 @@ const Pay: React.FC<PayProps> = (props) => {
             <div className="pay-img">
               <iframe srcDoc={formText}
                 width="200"
-                height="200"
+                height="205"
               >
               </iframe>
             </div>
