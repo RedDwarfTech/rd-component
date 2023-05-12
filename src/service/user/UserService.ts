@@ -1,6 +1,6 @@
 import { IUserModel, WheelGlobal } from 'js-wheel';
 import { UserActionType } from '@/action/user/UserAction';
-import { requestWithActionType } from '@/common/XHRClient';
+import { requestWithActionType, requestWithoutAction } from '@/common/XHRClient';
 import { AnyAction, Store } from 'redux';
 
 export const UserService = {
@@ -12,6 +12,13 @@ export const UserService = {
         };
         const actionTypeString: string = UserActionType[UserActionType.GET_CURRENT_USER];
         return requestWithActionType(config, actionTypeString, store);
+    },
+    getCurrUser:()=>{
+        const config = {
+            method: 'get',
+            url: '/post/user/current-user'
+        };
+        return requestWithoutAction(config);
     },
     userLoginImpl: (params: any, store: Store<any, AnyAction>) => {
         const config = {

@@ -1,4 +1,4 @@
-import axios, { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { RequestHandler, ResponseCode, WheelGlobal } from 'js-wheel';
 import { AnyAction, Store } from 'redux';
@@ -12,7 +12,7 @@ const instance = axios.create({
 
 instance.defaults.headers.post['Content-Type'] = 'application/json'
 
-export const addRequiredHeaders = (store: Store<any, AnyAction>) => {
+export const addRequiredHeaders = (store?: Store<any, AnyAction>) => {
   instance.interceptors.request.use((request) => {
     const accessToken = localStorage.getItem(WheelGlobal.ACCESS_TOKEN_NAME);
     accessToken && (request.headers['x-access-token'] = accessToken);
@@ -43,14 +43,17 @@ export const addRequiredHeaders = (store: Store<any, AnyAction>) => {
               request.headers['x-access-token'] = accessToken;
               request.headers['x-request-id'] = uuidv4();
               instance(request).then((resp: any) => {
+                if (!store) return;
                 const actionType = response.config.headers['x-action'];
-                const data = resp.data.result;
-                const action = {
-                  type: actionType,
-                  data: data
-                };
-                // change the state to make it render the UI
-                store.dispatch(action);
+                if (actionType) {
+                  const data = resp.data.result;
+                  const action = {
+                    type: actionType,
+                    data: data
+                  };
+                  // change the state to make it render the UI
+                  store.dispatch(action);
+                }
               });
             });
             pendingRequestsQueue = [];
@@ -63,9 +66,21 @@ export const addRequiredHeaders = (store: Store<any, AnyAction>) => {
   )
 }
 
-export function requestWithAction(config: any, action: any, store: Store<any, AnyAction>) {
+export function requestWithoutAction(config: AxiosRequestConfig) {
+  addRequiredHeaders();
+  return instance(config).then((response: { data: { result: any; }; }) => {    
+    return response.data;
+  }).catch((error: any) => {
+    console.error(error);
+  });
+}
+
+export function requestWithAction(config: AxiosRequestConfig, action: any, store: Store<any, AnyAction>) {
   const actionJson = action({}).type;
-  config.headers['x-action'] = actionJson;
+  const generalHeader = {
+    'x-action': actionJson
+  };
+  config.headers = Object.assign({}, config.headers, generalHeader);
   addRequiredHeaders(store);
   return instance(config).then((response: { data: { result: any; }; }) => {
     const data = response.data.result;
@@ -79,7 +94,7 @@ export function requestWithAction(config: any, action: any, store: Store<any, An
   );
 }
 
-export function requestWithActionType(config: any, actionType: string, store: Store<any, AnyAction>) {
+export function requestWithActionType(config: AxiosRequestConfig, actionType: string, store: Store<any, AnyAction>) {
   const generalHeader = {
     'x-action': actionType
   };
@@ -93,9 +108,7 @@ export function requestWithActionType(config: any, actionType: string, store: St
     };
     store.dispatch(localAction);
     return response.data;
-  }
-  ).catch((error: any) => {
+  }).catch((error: any) => {
     console.error(error);
-  }
-  );
+  });
 }

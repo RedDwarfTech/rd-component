@@ -4,11 +4,9 @@ import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import UserService from "@/service/user/UserService";
 import { RequestHandler, ResponseHandler } from "js-wheel";
-import { AnyAction, Store } from 'redux';
 
 export type PaySuccessProps = {
     refreshUser: boolean;
-    store: Store<any, AnyAction>;
 };
 
 const PaySuccess: React.FC<PaySuccessProps> = (props: PaySuccessProps) => {
@@ -25,7 +23,7 @@ const PaySuccess: React.FC<PaySuccessProps> = (props: PaySuccessProps) => {
     const parsed = queryString.parse(location.search.replace(/&amp;/g, '&'));
     if (parsed != null && parsed.orderId && parsed.payAmount) {
         if (props && props.refreshUser) {
-            UserService.getCurrentUser(props.store).then((data: any) => {
+            UserService.getCurrUser().then((data: any) => {
                 if (ResponseHandler.responseSuccess(data)) {
                     localStorage.setItem("userInfo", JSON.stringify(data.result));
                     RequestHandler.handleWebAccessTokenExpire();
