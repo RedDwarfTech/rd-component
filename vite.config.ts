@@ -24,7 +24,7 @@ export default defineConfig({
         assetsDir: 'src/assets',
         sourcemap: true,
         rollupOptions: {
-            external: ['react', 'react-dom', 'styled-components'],
+            external: ['react', 'react-dom', 'styled-components','react-router-dom'],
             output: {
                 globals: {
                     react: 'React',
