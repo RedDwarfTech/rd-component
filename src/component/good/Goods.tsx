@@ -7,7 +7,6 @@ import { IapProduct } from "@/models/product/IapProduct";
 import { Divider } from "antd";
 import React from "react";
 import { v4 as uuid } from 'uuid';
-import withConnect from "@/component/hoc/withConnect";
 import { doPay } from "@/service/pay/PayService";
 import { AnyAction, Store } from "redux";
 
@@ -92,4 +91,4 @@ const Goods: React.FC<IGoodsProp> = (props: any) => {
   );
 }
 
-export default withConnect(Goods);
+export default Goods;
