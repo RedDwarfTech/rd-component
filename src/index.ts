@@ -41,7 +41,7 @@ export {
     UserService,
     FileActionType,
     MessageHandler,
-    OrderService,
+    OrderService
 };
 
 export type { 
