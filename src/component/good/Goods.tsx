@@ -9,6 +9,7 @@ import React from "react";
 import { v4 as uuid } from 'uuid';
 import { doPay } from "@/service/pay/PayService";
 import { AnyAction, Store } from "redux";
+import withConnect from "../hoc/withConnect";
 
 interface IGoodsProp {
   appId: string;
@@ -91,4 +92,4 @@ const Goods: React.FC<IGoodsProp> = (props: any) => {
   );
 }
 
-export default Goods;
+export default withConnect(Goods);
