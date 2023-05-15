@@ -17,7 +17,7 @@ export const XHRClient = {
     addRequiredHeaders();
     try {
       const response = await instance(config);
-      return response.data;
+      return response;
     } catch (error) {
       console.error(error);
     }
