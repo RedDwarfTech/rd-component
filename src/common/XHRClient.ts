@@ -12,6 +12,20 @@ const instance = axios.create({
 
 instance.defaults.headers.post['Content-Type'] = 'application/json'
 
+export const XHRClient = {
+  requestWithoutAction: async (config: AxiosRequestConfig): Promise<any> => {
+    addRequiredHeaders();
+    try {
+      const response = await instance(config);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+}
+
+export default XHRClient;
+
 export const addRequiredHeaders = (store?: Store<any, AnyAction>) => {
   instance.interceptors.request.use((request) => {
     const accessToken = localStorage.getItem(WheelGlobal.ACCESS_TOKEN_NAME);
@@ -64,16 +78,6 @@ export const addRequiredHeaders = (store?: Store<any, AnyAction>) => {
   },
     (error: any) => { return Promise.reject(error) }
   )
-}
-
-export async function requestWithoutAction(config: AxiosRequestConfig): Promise<any> {
-  addRequiredHeaders();
-  try {
-    const response = await instance(config);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-  }
 }
 
 export function requestWithAction(config: AxiosRequestConfig, action: any, store: Store<any, AnyAction>) {

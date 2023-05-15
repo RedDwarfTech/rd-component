@@ -2,7 +2,7 @@ import { AxiosRequestConfig } from "axios";
 import { RdColor } from "js-wheel";
 import { message } from "antd";
 import { AnyAction, Store } from "redux";
-import { requestWithActionType, requestWithoutAction } from "@/common/XHRClient";
+import XHRClient, { requestWithActionType } from "@/common/XHRClient";
 import { FileActionType } from "@/action/file/FileAction";
 
 export const FileService = {
@@ -29,7 +29,7 @@ export const FileService = {
         const actionTypeString: string = FileActionType[FileActionType.DOWNLOAD_FILE];
         return requestWithActionType(config, actionTypeString, store);
     },
-    downloadZipFile: (params: URLSearchParams): Promise<any> => {
+    downloadZipFile: async (params: URLSearchParams): Promise<any> => {
         const config: AxiosRequestConfig = {
             method: 'get',
             responseType: "blob",
@@ -38,7 +38,7 @@ export const FileService = {
             },
             url: '/snap/photo/download/batch?' + params,
         };
-        return requestWithoutAction(config);
+        return await XHRClient.requestWithoutAction(config);
     },
     clearPhoto: (store: Store<any, AnyAction>) => {
         const actionTypeString: string = FileActionType[FileActionType.FILE_CLEAR];

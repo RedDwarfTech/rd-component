@@ -1,6 +1,6 @@
 {
     "name": "rd-component",
-    "version": "0.1.71",
+    "version": "0.1.72",
     "type": "module",
     "description": "Reddwarf public component lib",
     "files": [
@@ -81,7 +81,7 @@
         "babel-jest": "^29.5.0",
         "jest": "^29.5.0",
         "query-string": "^8.1.0",        
-        "storybook": "^7.0.11",
+        "storybook": "^7.0.10",
         "ts-jest": "^29.1.0",
         "vite-plugin-dts": "^2.3.0"
     }
