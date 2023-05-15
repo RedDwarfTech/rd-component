@@ -66,13 +66,14 @@ export const addRequiredHeaders = (store?: Store<any, AnyAction>) => {
   )
 }
 
-export function requestWithoutAction(config: AxiosRequestConfig) {
+export async function requestWithoutAction(config: AxiosRequestConfig): Promise<any> {
   addRequiredHeaders();
-  return instance(config).then((response: { data: { result: any; }; }) => {    
+  try {
+    const response = await instance(config);
     return response.data;
-  }).catch((error: any) => {
+  } catch (error) {
     console.error(error);
-  });
+  }
 }
 
 export function requestWithAction(config: AxiosRequestConfig, action: any, store: Store<any, AnyAction>) {
