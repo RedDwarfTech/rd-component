@@ -20,6 +20,7 @@ import { fileAction, FileActionType } from "./action/file/FileAction";
 import MessageHandler from "./common/util/MessageHandler";
 import OrderService from "./service/order/OrderService";
 import PaySuccess from "./component/pay/success/PaySuccess";
+import FileService from "./service/file/FileService";
 
 export {
     CommonPage,
@@ -39,6 +40,7 @@ export {
     doPay,
     PayService,
     UserService,
+    FileService,
     FileActionType,
     MessageHandler,
     OrderService
