@@ -32,6 +32,10 @@ const Goods: React.FC<IGoodsProp> = (props: IGoodsProp) => {
 
   React.useEffect(() => {
     getGoods(props.appId);
+    document.addEventListener('click', handleOutsideClick);
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
   }, []);
 
   React.useEffect(() => {
@@ -45,6 +49,13 @@ const Goods: React.FC<IGoodsProp> = (props: IGoodsProp) => {
       setPayFrame(formText);
     }
   }, [formText]);
+
+  const handleOutsideClick = (e: any) => {
+    const modal = document.getElementById('pay-popup');
+    if (modal && !modal.contains(e.target)) {
+      setPayFrame('');
+    }
+  };
 
   const getGoods = (appId: string) => {
     doGetIapProduct(props.store);
