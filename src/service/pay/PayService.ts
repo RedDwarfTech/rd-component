@@ -15,11 +15,19 @@ export function doPay(params: any, store: Store<any, AnyAction>) {
 }
 
 export const PayService = {
-    setPayedInfo: (order: IOrder,store: Store<any, AnyAction>) => {
+    setPayedInfo: (order: IOrder, store: Store<any, AnyAction>) => {
         const actionTypeString: string = PayActionType[PayActionType.SET_PAYED_ORDER_INFO];
         const action = {
             type: actionTypeString,
             data: order
+        };
+        store.dispatch(action);
+    },
+    doClearAlipayFormText: (store: Store<any, AnyAction>) => {
+        const actionTypeString: string = PayActionType[PayActionType.CLEAR_ALIPAY_FORM_TEXT];
+        const action = {
+            type: actionTypeString,
+            data: ''
         };
         store.dispatch(action);
     }

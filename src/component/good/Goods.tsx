@@ -7,13 +7,14 @@ import { IapProduct } from "@/models/product/IapProduct";
 import { Divider, message } from "antd";
 import React from "react";
 import { v4 as uuid } from 'uuid';
-import { doPay } from "@/service/pay/PayService";
+import PayService, { doPay } from "@/service/pay/PayService";
 import { AnyAction, Store } from "redux";
 import withConnect from "../hoc/withConnect";
 import Pay from "../pay/Pay";
 import OrderService from "@/service/order/OrderService";
 import { RequestHandler, ResponseHandler } from "js-wheel";
 import UserService from "@/service/user/UserService";
+import { IOrder } from "@/models/pay/IOrder";
 
 interface IGoodsProp {
   appId: string;
@@ -24,14 +25,14 @@ interface IGoodsProp {
 const Goods: React.FC<IGoodsProp> = (props: IGoodsProp) => {
 
   const { iapproducts } = useSelector((state: any) => state.iapproducts);
-  const { formText } = useSelector((state: any) => state.pay);
+  const { createdOrder } = useSelector((state: any) => state.pay);
   const [payFrame, setPayFrame] = useState('');
-  const [createdOrderInfo, setCreatedOrderInfo] = useState<{ formText: string, orderId: string }>();
+  const [createdOrderInfo, setCreatedOrderInfo] = useState<IOrder>();
   const [products, setProducts] = useState<IapProduct[]>([]);
   const [currentProduct, setCurrentProduct] = useState<IapProduct>();
 
   React.useEffect(() => {
-    getGoods(props.appId);
+    getGoods();
     document.addEventListener('click', handleOutsideClick);
     return () => {
       document.removeEventListener('click', handleOutsideClick);
@@ -45,10 +46,14 @@ const Goods: React.FC<IGoodsProp> = (props: IGoodsProp) => {
   }, [iapproducts]);
 
   React.useEffect(() => {
-    if (formText && formText.length > 0) {
-      setPayFrame(formText);
+    if (createdOrder && Object.keys(createdOrder).length > 0) {
+      setCreatedOrderInfo(createdOrder);
+      setPayFrame(createdOrder.formText);
     }
-  }, [formText]);
+    return () => {
+      PayService.doClearAlipayFormText(props.store);
+    }
+  }, [createdOrder]);
 
   const handleOutsideClick = (e: any) => {
     const modal = document.getElementById('pay-popup');
@@ -57,7 +62,7 @@ const Goods: React.FC<IGoodsProp> = (props: IGoodsProp) => {
     }
   };
 
-  const getGoods = (appId: string) => {
+  const getGoods = () => {
     doGetIapProduct(props.store);
   }
 
