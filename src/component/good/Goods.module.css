@@ -11,6 +11,7 @@
     justify-content: space-between;
     align-items: flex-start;
     margin-top: 50px;
+    align-items: stretch;
 }
 
 .package {
@@ -25,6 +26,8 @@
     padding: 20px;
     margin-bottom: 30px;
     box-shadow: 3px 3px 5px #ccc;
+    display: flex;
+    flex-direction: column;
 }
 
 .package h2 {
@@ -66,7 +69,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 20px;
+    margin-top: auto;
     display: block;
     margin: 0 auto;
 }
