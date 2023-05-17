@@ -25,7 +25,7 @@ interface IGoodsProp {
 const Goods: React.FC<IGoodsProp> = (props: IGoodsProp) => {
 
   const { iapproducts } = useSelector((state: any) => state.iapproducts);
-  const { createdOrder } = useSelector((state: any) => state.pay);
+  const { createdOrder } = useSelector((state: any) => state.rdRootReducer.pay);
   const [payFrame, setPayFrame] = useState('');
   const [createdOrderInfo, setCreatedOrderInfo] = useState<IOrder>();
   const [products, setProducts] = useState<IapProduct[]>([]);
