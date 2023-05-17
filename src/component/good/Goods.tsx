@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import "./Goods.css"
+import styles from "./Goods.module.css";
 import { doGetIapProduct } from "@/service/goods/GoodsService";
 import { useState } from "react";
 import BaseMethods from "js-wheel/dist/src/utils/data/BaseMethods";
@@ -66,9 +66,9 @@ const Goods: React.FC<IGoodsProp> = (props: IGoodsProp) => {
     serverDataSource.sort((a: IapProduct, b: IapProduct) => b.sort - a.sort)
       .forEach((item: IapProduct) => {
         productSubList.push(
-          <div key={uuid()} className="package">
+          <div key={uuid()} className={styles.package}>
             <h2>{item.productTitle}</h2>
-            <p className="price">{item.price}<span>元</span></p>
+            <p className={styles.price}>{item.price}<span>元</span></p>
             <ul>
               {vipItems(item.description)}
             </ul>
@@ -120,7 +120,7 @@ const Goods: React.FC<IGoodsProp> = (props: IGoodsProp) => {
 
   return (
     <div>
-      <div className="product-container">
+      <div className={styles.productContainer}>
         {productSubMenu(products)}
       </div>
       <Divider></Divider>

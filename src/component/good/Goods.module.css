@@ -14,7 +14,11 @@
 }
 
 .package {
-    width: 32%;
+    /** 
+     * change to 25% to make the item arrange more reasonable
+     * the original 32% is too wide for the popup page, based on the macbook pro 15 inch screen
+     **/
+    width: 25%;
     background-color: #f7f7f7;
     border: 1px solid #ccc;
     border-radius: 10px;
