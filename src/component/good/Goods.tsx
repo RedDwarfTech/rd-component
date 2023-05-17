@@ -136,7 +136,7 @@ const Goods: React.FC<IGoodsProp> = (props: IGoodsProp) => {
 
   return (
     <div>
-      <div className={styles.productContainer}>
+      <div className={styles.container}>
         {productSubMenu(products)}
       </div>
       <Divider></Divider>
