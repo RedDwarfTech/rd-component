@@ -21,6 +21,31 @@ export const XHRClient = {
     } catch (error) {
       console.error(error);
     }
+  },
+  dispathAction: (data: any, actionType: string, store: Store<any, AnyAction>) => {
+    const localAction = {
+      type: actionType,
+      data: data
+    };
+    store.dispatch(localAction);
+  },
+  requestWithActionType: (config: AxiosRequestConfig, actionType: string, store: Store<any, AnyAction>) => {
+    const generalHeader = {
+      'x-action': actionType
+    };
+    config.headers = Object.assign({}, config.headers, generalHeader);
+    addRequiredHeaders(store);
+    return instance(config).then((response: { data: { result: any; }; }) => {
+      const data = response.data.result;
+      const localAction = {
+        type: actionType,
+        data: data
+      };
+      store.dispatch(localAction);
+      return response.data;
+    }).catch((error: any) => {
+      console.error(error);
+    });
   }
 }
 
@@ -97,23 +122,4 @@ export function requestWithAction(config: AxiosRequestConfig, action: any, store
       console.error(error);
     }
   );
-}
-
-export function requestWithActionType(config: AxiosRequestConfig, actionType: string, store: Store<any, AnyAction>) {
-  const generalHeader = {
-    'x-action': actionType
-  };
-  config.headers = Object.assign({}, config.headers, generalHeader);
-  addRequiredHeaders(store);
-  return instance(config).then((response: { data: { result: any; }; }) => {
-    const data = response.data.result;
-    const localAction = {
-      type: actionType,
-      data: data
-    };
-    store.dispatch(localAction);
-    return response.data;
-  }).catch((error: any) => {
-    console.error(error);
-  });
 }

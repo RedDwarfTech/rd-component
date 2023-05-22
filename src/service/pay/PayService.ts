@@ -1,5 +1,5 @@
 import { PayActionType } from '@/action/pay/PayAction';
-import { requestWithActionType } from '@/common/XHRClient';
+import { XHRClient } from '@/common/XHRClient';
 import { IOrder } from '@/models/pay/IOrder';
 import { AnyAction, Store } from 'redux';
 
@@ -11,7 +11,7 @@ export function doPay(params: any, store: Store<any, AnyAction>) {
         data: JSON.stringify(params)
     };
     const actionTypeString: string = PayActionType[PayActionType.CREATE_ORDER];
-    return requestWithActionType(config, actionTypeString, store);
+    return XHRClient.requestWithActionType(config, actionTypeString, store);
 }
 
 export const PayService = {

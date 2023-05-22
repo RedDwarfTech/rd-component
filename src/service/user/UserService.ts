@@ -1,6 +1,6 @@
 import { IUserModel, WheelGlobal } from 'js-wheel';
 import { UserActionType } from '@/action/user/UserAction';
-import XHRClient, { requestWithActionType } from '@/common/XHRClient';
+import XHRClient from '@/common/XHRClient';
 import { AnyAction, Store } from 'redux';
 
 export const UserService = {
@@ -11,7 +11,7 @@ export const UserService = {
             headers: { 'Content-Type': 'application/json' }
         };
         const actionTypeString: string = UserActionType[UserActionType.GET_CURRENT_USER];
-        return requestWithActionType(config, actionTypeString, store);
+        return XHRClient.requestWithActionType(config, actionTypeString, store);
     },
     getCurrUser:()=>{
         const config = {
@@ -28,7 +28,7 @@ export const UserService = {
             params: params
         };
         const actionTypeString: string = UserActionType[UserActionType.USER_LOGIN];
-        return requestWithActionType(config, actionTypeString, store);
+        return XHRClient.requestWithActionType(config, actionTypeString, store);
     },
     userLoginByPhoneImpl: (params: any, store: Store<any, AnyAction>) => {
         const config = {
@@ -38,7 +38,7 @@ export const UserService = {
             data: JSON.stringify(params)
         };
         const actionTypeString: string = UserActionType[UserActionType.LOGIN_BY_PHONE];
-        return requestWithActionType(config, actionTypeString, store);
+        return XHRClient.requestWithActionType(config, actionTypeString, store);
     },
     isLoggedIn: () => {
         const accessToken = localStorage.getItem(WheelGlobal.ACCESS_TOKEN_NAME);

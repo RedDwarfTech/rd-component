@@ -1,5 +1,5 @@
 import { OrderActionType } from '@/action/order/OrderAction';
-import { requestWithActionType } from '@/common/XHRClient';
+import { XHRClient } from '@/common/XHRClient';
 import { AnyAction, Store } from 'redux';
 
 export const OrderService = {
@@ -9,7 +9,7 @@ export const OrderService = {
             url: '/post/order/status?orderId=' + orderId,
         };
         const actionTypeString: string = OrderActionType[OrderActionType.GET_ORDER_STATUS];
-        return requestWithActionType(config, actionTypeString, store);
+        return XHRClient.requestWithActionType(config, actionTypeString, store);
     }
 }
 

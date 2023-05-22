@@ -2,7 +2,7 @@ import { AxiosRequestConfig } from "axios";
 import { RdColor } from "js-wheel";
 import { message } from "antd";
 import { AnyAction, Store } from "redux";
-import XHRClient, { requestWithActionType } from "@/common/XHRClient";
+import XHRClient from "@/common/XHRClient";
 import { FileActionType } from "@/action/file/FileAction";
 
 export const FileService = {
@@ -14,7 +14,7 @@ export const FileService = {
             data: JSON.stringify(params)
         };
         const actionTypeString: string = FileActionType[FileActionType.UPLOAD_FILE];
-        return requestWithActionType(config, actionTypeString, store);
+        return XHRClient.requestWithActionType(config, actionTypeString, store);
     },
     getDownloadFileUrl: (fid: string, bgColor: string, store: Store<any, AnyAction>) => {
         // https://stackoverflow.com/questions/76190591/how-about-to-use-encodeuricomponent-to-encode-key-and-parameter/76190600
@@ -27,7 +27,7 @@ export const FileService = {
             url: '/snap/photo/download?' + params,
         };
         const actionTypeString: string = FileActionType[FileActionType.DOWNLOAD_FILE];
-        return requestWithActionType(config, actionTypeString, store);
+        return XHRClient.requestWithActionType(config, actionTypeString, store);
     },
     downloadZipFile: async (params: URLSearchParams): Promise<any> => {
         const config: AxiosRequestConfig = {

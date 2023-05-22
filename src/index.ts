@@ -7,7 +7,7 @@ import CommonPageCon from "./component/demo/CommonPageCon";
 import withConnect from "./component/hoc/withConnect";
 import Footer from "./component/layout/footer/Footer";
 import UserProfile from "./component/user/profile/UserProfile";
-import { requestWithActionType, XHRClient } from "./common/XHRClient";
+import { XHRClient } from "./common/XHRClient";
 import { userAction, UserActionType } from "./action/user/UserAction";
 import { payAction, PayActionType } from "./action/pay/PayAction";
 import { IapProduct } from "./models/product/IapProduct";
@@ -33,7 +33,6 @@ export {
     withConnect,
     Footer,
     UserProfile,
-    requestWithActionType,
     UserActionType,
     PayActionType,
     doGetIapProduct,
