@@ -8,7 +8,6 @@ export const UserService = {
         const config = {
             method: 'get',
             url: '/post/user/current-user',
-            headers: { 'Content-Type': 'application/json' }
         };
         const actionTypeString: string = UserActionType[UserActionType.GET_CURRENT_USER];
         return XHRClient.requestWithActionType(config, actionTypeString, store);
@@ -24,17 +23,15 @@ export const UserService = {
         const config = {
             method: 'get',
             url: '/post/alipay/login/getQRCodeUrl',
-            headers: { 'Content-Type': 'application/json' },
             params: params
         };
         const actionTypeString: string = UserActionType[UserActionType.USER_LOGIN];
         return XHRClient.requestWithActionType(config, actionTypeString, store);
     },
-    userLoginByPhoneImpl: (params: any, store: Store<any, AnyAction>) => {
+    userLoginByPhoneImpl: (params: any, store: Store<any, AnyAction>, loginUrl: string) => {
         const config = {
             method: 'post',
-            url: '/ai/user/login',
-            headers: { 'Content-Type': 'application/json' },
+            url: loginUrl,
             data: JSON.stringify(params)
         };
         const actionTypeString: string = UserActionType[UserActionType.LOGIN_BY_PHONE];
