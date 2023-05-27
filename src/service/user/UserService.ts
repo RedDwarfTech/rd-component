@@ -12,7 +12,7 @@ export const UserService = {
         const actionTypeString: string = UserActionType[UserActionType.GET_CURRENT_USER];
         return XHRClient.requestWithActionType(config, actionTypeString, store);
     },
-    getCurrUser:()=>{
+    getCurrUser: () => {
         const config = {
             method: 'get',
             url: '/post/user/current-user'
@@ -67,6 +67,15 @@ export const UserService = {
         document.cookie = 'avatarUrl=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         document.cookie = 'refreshToken=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         window.location.href = logoutUrl;
+    },
+    userReg: (params: any, store: Store<any, AnyAction>, regUrl: string) => {
+        const config = {
+            method: 'post',
+            url: regUrl,
+            data: JSON.stringify(params)
+        };
+        const actionTypeString: string = UserActionType[UserActionType.USER_REG];
+        return XHRClient.requestWithActionType(config, actionTypeString, store);
     }
 }
 
