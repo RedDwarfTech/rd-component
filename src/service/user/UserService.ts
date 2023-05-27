@@ -12,10 +12,10 @@ export const UserService = {
         const actionTypeString: string = UserActionType[UserActionType.GET_CURRENT_USER];
         return XHRClient.requestWithActionType(config, actionTypeString, store);
     },
-    getCurrUser: () => {
+    getCurrUser: (url:string) => {
         const config = {
             method: 'get',
-            url: '/post/user/current-user'
+            url: url
         };
         return XHRClient.requestWithoutAction(config);
     },
