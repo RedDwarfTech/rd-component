@@ -4,7 +4,8 @@ import { REST, RequestHandler, ResponseCode, ResponseHandler, WheelGlobal } from
 import { AnyAction, Store } from 'redux';
 import { message } from 'antd';
 
-let isRefreshing = false
+let isRefreshing = false;
+let refreshTimes = 0;
 let pendingRequestsQueue: Array<any> = [];
 
 const instance = axios.create({
@@ -88,15 +89,20 @@ export const XHRClient = {
       if (isRefreshing) {
         pendingRequestsQueue.push(originalRequest);
       }
-      if (!isRefreshing) {
+      if (!isRefreshing && refreshTimes <=3) {
         if (response.data.resultCode === ResponseCode.ACCESS_TOKEN_EXPIRED
           || response.data.resultCode === ResponseCode.ACCESS_TOKEN_INVALID) {
           pendingRequestsQueue.push(originalRequest);
           isRefreshing = true;
+          refreshTimes = refreshTimes + 1;
           // refresh the access token
           RequestHandler.handleWebAccessTokenExpire()
             .then((data: any) => {
+              if(!ResponseHandler.responseSuccess(data)){
+                return;
+              }
               isRefreshing = false;
+              refreshTimes = 0;
               pendingRequestsQueue.forEach((request) => {
                 const accessToken = localStorage.getItem(WheelGlobal.ACCESS_TOKEN_NAME);
                 request.headers['x-access-token'] = accessToken;
