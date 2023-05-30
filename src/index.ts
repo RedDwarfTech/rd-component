@@ -21,6 +21,7 @@ import MessageHandler from "./common/util/MessageHandler";
 import OrderService from "./service/order/OrderService";
 import PaySuccess from "./component/pay/success/PaySuccess";
 import FileService from "./service/file/FileService";
+import SseClientService from "./service/sse/SseClientService";
 
 export {
     CommonPage,
@@ -43,7 +44,8 @@ export {
     FileActionType,
     MessageHandler,
     OrderService,
-    XHRClient
+    XHRClient,
+    SseClientService
 };
 
 export type { 
