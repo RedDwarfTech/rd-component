@@ -1,5 +1,5 @@
 import paySuccessIcon from "../../../assets/icons/pay/pay-success.png";
-import "./PaySuccess.css";
+import "./PaySuccess.module.css";
 
 const PaySuccess: React.FC = () => {
     return (

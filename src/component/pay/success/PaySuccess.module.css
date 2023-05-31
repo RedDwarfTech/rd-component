@@ -1,3 +1,7 @@
+body{
+    width: 100%;
+}
+
 .pay-success-body {
     width: 200px;
     height: 200px;
