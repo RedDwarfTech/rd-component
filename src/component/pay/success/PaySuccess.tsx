@@ -1,13 +1,13 @@
 import paySuccessIcon from "../../../assets/icons/pay/pay-success.png";
-import "./PaySuccess.module.css";
+import styles from "./PaySuccess.module.css";
 
 const PaySuccess: React.FC = () => {
     return (
-        <div className="pay-success-body">
-            <div className="pay-success-indicator">
+        <div className={styles.paySuccessBody}>
+            <div className={styles.paySuccessIndicator}>
                 <img src={paySuccessIcon}></img>
             </div>
-            <div className="pay-success-tip">支付成功</div>
+            <div className={styles.paySuccessTip}>支付成功</div>
         </div>
     );
 }
