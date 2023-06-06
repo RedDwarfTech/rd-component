@@ -2,7 +2,7 @@ import { OrderActionType } from '@/action/order/OrderAction';
 import { XHRClient } from '@/common/XHRClient';
 import { AnyAction, Store } from 'redux';
 
-export const OrderService = {
+export const OrderService:any = {
     getOrderStatus: (orderId: string,store: Store<any, AnyAction>) => {
         const config = {
             method: 'get',

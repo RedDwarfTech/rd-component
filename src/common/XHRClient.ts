@@ -1,9 +1,8 @@
 import axios, { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import { v4 as uuidv4 } from 'uuid';
-import { RequestHandler, ResponseCode, ResponseHandler, WheelGlobal } from 'rdjs-wheel';
+import { ApiResponse, RequestHandler, ResponseCode, ResponseHandler, WheelGlobal } from 'rdjs-wheel';
 import { AnyAction, Store } from 'redux';
 import { message } from 'antd';
-import { ApiResponse } from 'rdjs-wheel/dist/src/model/rest/response/ApiResonse';
 
 let isRefreshing = false;
 let refreshTimes = 0;

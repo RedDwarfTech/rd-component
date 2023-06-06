@@ -3,7 +3,7 @@ import { XHRClient } from '@/common/XHRClient';
 import { IOrder } from '@/models/pay/IOrder';
 import { AnyAction, Store } from 'redux';
 
-export const PayService = {
+export const PayService:any = {
     doPay:(params: any, store: Store<any, AnyAction>)=>{
         const config = {
             method: 'post',
