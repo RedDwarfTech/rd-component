@@ -10,8 +10,9 @@
     "baseUrl": "./",
     "paths": {
       "@/*": [
-        "src/*"
-      ]
+        "src/*",
+      ],
+      "rdjs-wheel": ["node_modules/rdjs-wheel"]
     },
     "target": "es5",
     "lib": [
