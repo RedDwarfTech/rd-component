@@ -1,4 +1,4 @@
-import { IUserModel, WheelGlobal } from 'js-wheel';
+import { IUserModel, WheelGlobal } from 'rdjs-wheel';
 import { UserActionType } from '@/action/user/UserAction';
 import XHRClient from '@/common/XHRClient';
 import { AnyAction, Store } from 'redux';

@@ -3,18 +3,17 @@ import { XHRClient } from '@/common/XHRClient';
 import { IOrder } from '@/models/pay/IOrder';
 import { AnyAction, Store } from 'redux';
 
-export function doPay(params: any, store: Store<any, AnyAction>) {
-    const config = {
-        method: 'post',
-        url: '/post/alipay/pay/createOrder',
-        headers: { 'Content-Type': 'application/json' },
-        data: JSON.stringify(params)
-    };
-    const actionTypeString: string = PayActionType[PayActionType.CREATE_ORDER];
-    return XHRClient.requestWithActionType(config, actionTypeString, store);
-}
-
 export const PayService = {
+    doPay:(params: any, store: Store<any, AnyAction>)=>{
+        const config = {
+            method: 'post',
+            url: '/post/alipay/pay/createOrder',
+            headers: { 'Content-Type': 'application/json' },
+            data: JSON.stringify(params)
+        };
+        const actionTypeString: string = PayActionType[PayActionType.CREATE_ORDER];
+        return XHRClient.requestWithActionType(config, actionTypeString, store);
+    },
     setPayedInfo: (order: IOrder, store: Store<any, AnyAction>) => {
         const actionTypeString: string = PayActionType[PayActionType.SET_PAYED_ORDER_INFO];
         const action = {

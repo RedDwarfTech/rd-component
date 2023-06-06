@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import { v4 as uuidv4 } from 'uuid';
-import { REST, RequestHandler, ResponseCode, ResponseHandler, WheelGlobal } from 'js-wheel';
+import { REST, RequestHandler, ResponseCode, ResponseHandler, WheelGlobal } from 'rdjs-wheel';
 import { AnyAction, Store } from 'redux';
 import { message } from 'antd';
 

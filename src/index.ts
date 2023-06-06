@@ -12,7 +12,7 @@ import { userAction, UserActionType } from "./action/user/UserAction";
 import { payAction, PayActionType } from "./action/pay/PayAction";
 import { IapProduct } from "./models/product/IapProduct";
 import { doGetIapProduct } from "./service/goods/GoodsService";
-import PayService, { doPay } from "./service/pay/PayService";
+import PayService from "./service/pay/PayService";
 import { IOrder } from "./models/pay/IOrder";
 import UserService from "./service/user/UserService";
 import { IUploadedFile } from "./models/file/IUploadedFile";
@@ -37,7 +37,6 @@ export {
     UserActionType,
     PayActionType,
     doGetIapProduct,
-    doPay,
     PayService,
     UserService,
     FileService,

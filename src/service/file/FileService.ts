@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from "axios";
-import { RdColor } from "js-wheel";
+import { RdColor } from "rdjs-wheel";
 import { message } from "antd";
 import { AnyAction, Store } from "redux";
 import XHRClient from "@/common/XHRClient";

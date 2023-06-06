@@ -1,4 +1,4 @@
-import { IUserModel, TimeUtils } from "js-wheel";
+import { IUserModel, TimeUtils } from "rdjs-wheel";
 
 export const UserProfile = {
     getVipExpiredTime: (userInfo?: IUserModel): string => {

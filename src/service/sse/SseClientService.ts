@@ -1,5 +1,5 @@
 import { ChatAsk } from "@/models/chat/ChatAsk";
-import { AuthHandler, RequestHandler } from "js-wheel";
+import { AuthHandler, RequestHandler } from "rdjs-wheel";
 import { v4 as uuid } from 'uuid';
 import { EventSourcePolyfill } from 'event-source-polyfill';
 

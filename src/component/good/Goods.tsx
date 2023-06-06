@@ -2,17 +2,17 @@ import { useSelector } from "react-redux";
 import styles from "./Goods.module.css";
 import { doGetIapProduct } from "@/service/goods/GoodsService";
 import { useState } from "react";
-import BaseMethods from "js-wheel/dist/src/utils/data/BaseMethods";
+import BaseMethods from "rdjs-wheel/dist/src/utils/data/BaseMethods";
 import { IapProduct } from "@/models/product/IapProduct";
 import { Divider, message } from "antd";
 import React from "react";
 import { v4 as uuid } from 'uuid';
-import PayService, { doPay } from "@/service/pay/PayService";
+import PayService from "@/service/pay/PayService";
 import { AnyAction, Store } from "redux";
 import withConnect from "../hoc/withConnect";
 import Pay from "../pay/Pay";
 import OrderService from "@/service/order/OrderService";
-import { RequestHandler, ResponseHandler } from "js-wheel";
+import { RequestHandler, ResponseHandler } from "rdjs-wheel";
 import UserService from "@/service/user/UserService";
 import { IOrder } from "@/models/pay/IOrder";
 
@@ -71,7 +71,7 @@ const Goods: React.FC<IGoodsProp> = (props: IGoodsProp) => {
       productId: Number(row.id)
     };
     setCurrentProduct(row);
-    doPay(param, props.store);
+    PayService.doPay(param, props.store);
   };
 
   const productSubMenu = (serverDataSource: IapProduct[]) => {
