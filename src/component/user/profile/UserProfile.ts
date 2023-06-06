@@ -1,7 +1,7 @@
-import { IUserModel, TimeUtils } from "rdjs-wheel";
+import { UserModel, TimeUtils } from "rdjs-wheel";
 
 export const UserProfile = {
-    getVipExpiredTime: (userInfo?: IUserModel): string => {
+    getVipExpiredTime: (userInfo?: UserModel): string => {
         if (!userInfo || !userInfo.autoRenewProductExpireTimeMs) {
             return "--";
         }

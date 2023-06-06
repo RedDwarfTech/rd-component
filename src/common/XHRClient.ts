@@ -1,8 +1,9 @@
 import axios, { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import { v4 as uuidv4 } from 'uuid';
-import { REST, RequestHandler, ResponseCode, ResponseHandler, WheelGlobal } from 'rdjs-wheel';
+import { RequestHandler, ResponseCode, ResponseHandler, WheelGlobal } from 'rdjs-wheel';
 import { AnyAction, Store } from 'redux';
 import { message } from 'antd';
+import { ApiResponse } from 'rdjs-wheel/dist/src/model/rest/response/ApiResonse';
 
 let isRefreshing = false;
 let refreshTimes = 0;
@@ -38,7 +39,7 @@ export const XHRClient = {
     config.headers = Object.assign({}, config.headers, generalHeader);
     XHRClient.addRequiredHeaders(store);
     return instance(config).then((response: AxiosResponse) => {
-      const appResponse: REST.ApiResponse = response.data;
+      const appResponse: ApiResponse = response.data;
       if (ResponseHandler.responseSuccess(appResponse)) {
         const data = appResponse.result;
         const localAction = {
