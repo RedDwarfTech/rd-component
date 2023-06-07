@@ -31,7 +31,7 @@ export const XHRClient = {
     };
     store.dispatch(localAction);
   },
-  requestWithActionType: (config: AxiosRequestConfig, actionType: string, store: Store<any, AnyAction>) => {
+  requestWithActionType: (config: AxiosRequestConfig, actionType: string, store: Store<any, AnyAction>): Promise<any> => {
     const generalHeader = {
       'x-action': actionType
     };
@@ -48,7 +48,8 @@ export const XHRClient = {
         store.dispatch(localAction);
         return appResponse;
       } else {
-        message.error(appResponse.msg)
+        message.error(appResponse.msg);
+        return appResponse;
       }
     }).catch((error: any) => {
       console.error(error);
