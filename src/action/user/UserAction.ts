@@ -4,7 +4,9 @@ export enum UserActionType {
   LOGIN_BY_PHONE,
   USER_LOGIN,
   GET_CURRENT_USER,
-  USER_REG
+  USER_REG,
+  SEND_VERIFY_CODE,
+  RESET_PWD
 }
 
 export interface loginByPhoneAction {
@@ -24,5 +26,15 @@ export interface userRegAction {
 
 export interface getCurrentUserAction {
   type: UserActionType.USER_LOGIN;
+  data: any;
+}
+
+export interface sendVerifyCodeAction {
+  type: UserActionType.SEND_VERIFY_CODE;
+  data: any;
+}
+
+export interface resetPwdAction {
+  type: UserActionType.RESET_PWD;
   data: any;
 }

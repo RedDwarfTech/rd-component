@@ -12,7 +12,7 @@ export const UserService = {
         const actionTypeString: string = UserActionType[UserActionType.GET_CURRENT_USER];
         return XHRClient.requestWithActionType(config, actionTypeString, store);
     },
-    getCurrUser: (url:string) => {
+    getCurrUser: (url: string) => {
         const config = {
             method: 'get',
             url: url
@@ -75,6 +75,25 @@ export const UserService = {
             data: JSON.stringify(params)
         };
         const actionTypeString: string = UserActionType[UserActionType.USER_REG];
+        return XHRClient.requestWithActionType(config, actionTypeString, store);
+    },
+    doSendVerifyCode: (params: any, url: string, store: Store<any, AnyAction>) => {
+        const config = {
+            method: 'post',
+            url: url,
+            data: JSON.stringify(params)
+        };
+        const actionTypeString: string = UserActionType[UserActionType.SEND_VERIFY_CODE];
+        return XHRClient.requestWithActionType(config, actionTypeString, store);
+    },
+    doResetPwd: (params: any, url: string, store: Store<any, AnyAction>) => {
+        const config = {
+            method: 'patch',
+            url: url,
+            headers: { 'Content-Type': 'application/json' },
+            data: JSON.stringify(params)
+        };
+        const actionTypeString: string = UserActionType[UserActionType.RESET_PWD];
         return XHRClient.requestWithActionType(config, actionTypeString, store);
     }
 }
