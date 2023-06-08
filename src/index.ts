@@ -22,6 +22,8 @@ import OrderService from "./service/order/OrderService";
 import PaySuccess from "./component/pay/success/PaySuccess";
 import FileService from "./service/file/FileService";
 import SseClientService from "./service/sse/SseClientService";
+import { CountryCode } from "./models/common/phone/CountryCode";
+import { countryCodes } from "./models/common/phone/CountryCodeDef";
 
 export {
     CommonPage,
@@ -44,7 +46,8 @@ export {
     MessageHandler,
     OrderService,
     XHRClient,
-    SseClientService
+    SseClientService,
+    countryCodes
 };
 
 export type { 
@@ -53,5 +56,6 @@ export type {
     IapProduct,
     IOrder,
     IUploadedFile,
-    fileAction
+    fileAction,
+    CountryCode
  };
