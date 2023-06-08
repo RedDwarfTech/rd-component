@@ -1,4 +1,5 @@
 export interface CountryCode {
-    name: string;
+    en: string;
+    cn: string;
     code: string;
 }
