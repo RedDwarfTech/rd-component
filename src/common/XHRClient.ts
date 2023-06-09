@@ -48,7 +48,6 @@ export const XHRClient = {
         store.dispatch(localAction);
         return appResponse;
       } else {
-        message.error(appResponse.msg);
         return appResponse;
       }
     }).catch((error: any) => {
