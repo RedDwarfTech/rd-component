@@ -19,7 +19,7 @@ export const UserService = {
         };
         return XHRClient.requestWithoutAction(config);
     },
-    userLoginImpl: (params: any, store: Store<any, AnyAction>) => {
+    userLoginImpl: (params: any, store: Store<any, AnyAction>, url: string) => {
         const config = {
             method: 'get',
             url: '/post/alipay/login/getQRCodeUrl',
