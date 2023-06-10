@@ -22,7 +22,7 @@ export const UserService = {
     userLoginImpl: (params: any, store: Store<any, AnyAction>, url: string) => {
         const config = {
             method: 'get',
-            url: '/post/alipay/login/getQRCodeUrl',
+            url: url,
             params: params
         };
         const actionTypeString: string = UserActionType[UserActionType.USER_LOGIN];
