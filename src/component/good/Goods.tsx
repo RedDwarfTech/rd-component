@@ -18,7 +18,7 @@ import { IOrder } from "@/models/pay/IOrder";
 interface IGoodsProp {
   appId: string;
   store: Store<any, AnyAction>;
-  refreshUser?: boolean;
+  refreshUrl?: string;
 }
 
 const Goods: React.FC<IGoodsProp> = (props: IGoodsProp) => {
@@ -115,10 +115,10 @@ const Goods: React.FC<IGoodsProp> = (props: IGoodsProp) => {
         if (Number(resp.result.orderStatus) === 1) {
           setPayFrame('');
           setCreatedOrderInfo(undefined);
-          if (!props.refreshUser) {
+          if (!props.refreshUrl || props.refreshUrl.length === 0) {
             return;
           }
-          UserService.getCurrentUser(props.store).then((data: any) => {
+          UserService.getCurrUser(props.refreshUrl).then((data: any) => {
             if (ResponseHandler.responseSuccess(data)) {
               localStorage.setItem("userInfo", JSON.stringify(data.result));
               RequestHandler.handleWebAccessTokenExpire();
@@ -145,7 +145,7 @@ const Goods: React.FC<IGoodsProp> = (props: IGoodsProp) => {
 }
 
 Goods.defaultProps = {
-  refreshUser: false
+  refreshUrl: ''
 }
 
 export default withConnect(Goods);
