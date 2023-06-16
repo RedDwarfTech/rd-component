@@ -63,6 +63,8 @@ export const UserService = {
         localStorage.removeItem(WheelGlobal.REFRESH_TOKEN_NAME);
         localStorage.removeItem('avatarUrl');
         localStorage.removeItem('userInfo');
+        localStorage.removeItem('base-auth-url');
+        localStorage.removeItem('access-token-url-path');
         document.cookie = 'accessToken=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         document.cookie = 'avatarUrl=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         document.cookie = 'refreshToken=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
