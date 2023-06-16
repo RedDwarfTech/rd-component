@@ -4,7 +4,6 @@
       "./typings"
     ],
     "types": [
-      "@types/jest"
     ],
     "outDir": "./dist",
     "baseUrl": "./",
