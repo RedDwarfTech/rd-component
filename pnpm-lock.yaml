@@ -6589,6 +6589,7 @@ packages:
       chalk: 2.4.2
       diff-match-patch: 1.0.5
     dev: true
+    bundledDependencies: []
 
   /jsoneditor@9.10.2:
     resolution: {integrity: sha512-sT9U8T9MB7We5uyCnofugqYPJtQ5rPJngFlvpdtyFTFKFjOMnlWE1jVhFwjTXwGBoFeiLS+S6rVuhIhJ35Jutw==}
