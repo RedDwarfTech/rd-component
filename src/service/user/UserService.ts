@@ -1,4 +1,4 @@
-import { UserModel, WheelGlobal } from 'rdjs-wheel';
+import { ResponseHandler, UserModel, WheelGlobal } from 'rdjs-wheel';
 import { UserActionType } from '@/action/user/UserAction';
 import XHRClient from '@/common/XHRClient';
 import { AnyAction, Store } from 'redux';
@@ -97,6 +97,30 @@ export const UserService = {
         };
         const actionTypeString: string = UserActionType[UserActionType.RESET_PWD];
         return XHRClient.requestWithActionType(config, actionTypeString, store);
+    },
+    loadCurrUser: (force: boolean, url: string) => {
+        if (force) {
+            UserService.getCurrUser(url).then((data: any) => {
+                if (ResponseHandler.responseSuccess(data)) {
+                    const uid = data.result.userId;
+                    if (uid) {
+                        localStorage.setItem("userInfo", JSON.stringify(data.result));
+                    }
+                }
+            });
+        } else {
+            const uInfo = localStorage.getItem("userInfo");
+            if (!uInfo) {
+                UserService.getCurrUser(url).then((data: any) => {
+                    if (ResponseHandler.responseSuccess(data)) {
+                        const uid = data.result.userId;
+                        if (uid) {
+                            localStorage.setItem("userInfo", JSON.stringify(data.result));
+                        }
+                    }
+                });
+            }
+        }
     }
 }
 

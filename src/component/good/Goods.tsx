@@ -118,12 +118,8 @@ const Goods: React.FC<IGoodsProp> = (props: IGoodsProp) => {
           if (!props.refreshUrl || props.refreshUrl.length === 0) {
             return;
           }
-          UserService.getCurrUser(props.refreshUrl).then((data: any) => {
-            if (ResponseHandler.responseSuccess(data)) {
-              localStorage.setItem("userInfo", JSON.stringify(data.result));
-              RequestHandler.handleWebAccessTokenExpire();
-            }
-          });
+          UserService.loadCurrUser(true, props.refreshUrl);
+          RequestHandler.handleWebAccessTokenExpire();
         } else {
           message.warning("检测到订单当前未支付，请稍后再次确认");
         }
