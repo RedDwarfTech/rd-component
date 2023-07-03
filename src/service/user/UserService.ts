@@ -98,6 +98,12 @@ export const UserService = {
         const actionTypeString: string = UserActionType[UserActionType.RESET_PWD];
         return XHRClient.requestWithActionType(config, actionTypeString, store);
     },
+    getCurrLang: () => {
+        const userLanguage = navigator.language;
+        const cachedLang = localStorage.getItem('userLanguage');
+        const defaultLang = cachedLang ? cachedLang : userLanguage;
+        return defaultLang;
+    },
     loadCurrUser: (force: boolean, url: string) => {
         if (force) {
             UserService.getCurrUser(url).then((data: any) => {
