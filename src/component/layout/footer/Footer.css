@@ -38,3 +38,7 @@
   height: 40vmin;
   pointer-events: none;
 }
+
+.custom-row {
+  margin-bottom: 10px;
+}
