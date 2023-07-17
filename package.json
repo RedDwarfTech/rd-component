@@ -1,6 +1,6 @@
 {
     "name": "rd-component",
-    "version": "0.1.115",
+    "version": "0.1.116",
     "type": "module",
     "description": "Reddwarf public component lib",
     "files": [
@@ -50,7 +50,6 @@
         "@types/react": "^18.2.0",
         "@types/redux-logger": "^3.0.9",
         "addon-redux": "^2.0.11",
-        "antd": "^5.6.1",
         "axios": "^1.4.0",
         "event-source-polyfill": "^1.0.31",
         "rdjs-wheel": "0.0.16",
@@ -65,7 +64,6 @@
     "peerDependencies": {
         "@reduxjs/toolkit": "^1.9.5",
         "addon-redux": "^2.0.11",
-        "antd": "^5.5.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-redux": "^8.0.5",
@@ -85,6 +83,7 @@
         "query-string": "^8.1.0",
         "storybook": "^7.0.21",
         "ts-jest": "^29.1.0",
-        "vite-plugin-dts": "^2.3.0"
+        "vite-plugin-dts": "^2.3.0",
+        "react-toastify": "^9.1.3"
     }
 }

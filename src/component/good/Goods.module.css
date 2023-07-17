@@ -75,6 +75,12 @@
     display: block;
 }
 
+.goodsDivider {
+    border-top: 1px solid #ccc;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
 @media (max-width: 768px) {
     .package {
         width: 45%;

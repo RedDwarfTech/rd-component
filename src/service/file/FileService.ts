@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from "axios";
 import { RdColor } from "rdjs-wheel";
-import { message } from "antd";
+import { toast } from 'react-toastify';
 import { AnyAction, Store } from "redux";
 import XHRClient from "@/common/XHRClient";
 import { FileActionType } from "@/action/file/FileAction";
@@ -67,7 +67,7 @@ export const FileService = {
             const pixelData = imageData.data;
             const rgba = RdColor.colorToRGBA(bgColor);
             if (!rgba) {
-                message.warning("不支持的背景色");
+                toast.warning("不支持的背景色");
                 return;
             }
             const r = rgba[0];

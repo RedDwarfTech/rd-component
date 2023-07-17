@@ -3,7 +3,7 @@ import styles from "./Goods.module.css";
 import { doGetIapProduct } from "@/service/goods/GoodsService";
 import { useState } from "react";
 import { IapProduct } from "@/models/product/IapProduct";
-import { Divider, message } from "antd";
+import { toast } from 'react-toastify';
 import React from "react";
 import { v4 as uuid } from 'uuid';
 import PayService from "@/service/pay/PayService";
@@ -106,7 +106,7 @@ const Goods: React.FC<IGoodsProp> = (props: IGoodsProp) => {
 
   const payComplete = () => {
     if (!createdOrderInfo || !createdOrderInfo.orderId) {
-      message.error("未找到订单信息");
+      toast.error("未找到订单信息");
       return;
     }
     const orderId = createdOrderInfo.orderId;
@@ -121,10 +121,10 @@ const Goods: React.FC<IGoodsProp> = (props: IGoodsProp) => {
           UserService.loadCurrUser(true, props.refreshUrl);
           RequestHandler.handleWebAccessTokenExpire();
         } else {
-          message.warning("检测到订单当前未支付，请稍后再次确认");
+          toast.warning("检测到订单当前未支付，请稍后再次确认");
         }
       } else {
-        message.warning("订单检测失败");
+        toast.warning("订单检测失败");
       }
     });
   }
@@ -134,7 +134,7 @@ const Goods: React.FC<IGoodsProp> = (props: IGoodsProp) => {
       <div className={styles.container}>
         {productSubMenu(products)}
       </div>
-      <Divider></Divider>
+      <div className={styles.goodsDivider}></div>
       <Pay payFormText={payFrame} price={currentProduct?.price!} payProvider={"支付宝"} onPayComplete={payComplete}></Pay>
     </div>
   );
