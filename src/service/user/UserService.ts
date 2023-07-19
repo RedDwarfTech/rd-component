@@ -104,6 +104,14 @@ export const UserService = {
         const defaultLang = cachedLang ? cachedLang : userLanguage;
         return defaultLang;
     },
+    userUnbind: (accountType: number, url: string, store: Store<any, AnyAction>) => {
+        const config = {
+            method: 'delete',
+            url: url + "?accountType=" + accountType
+        };
+        const actionTypeString: string = UserActionType[UserActionType.USER_UNBIND];
+        return XHRClient.requestWithActionType(config, actionTypeString, store);
+    },
     loadCurrUser: (force: boolean, url: string) => {
         if (force) {
             UserService.getCurrUser(url).then((data: any) => {
