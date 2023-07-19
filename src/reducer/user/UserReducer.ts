@@ -10,6 +10,11 @@ const UserReducer = (state=initState, action: any) => {
                 ...state,
                 user: action.data 
             };
+        case "USER_UNBIND":
+            return {
+                ...state,
+                user: action.data 
+            };
         case "LOGIN_BY_PHONE":
             return {
                 ...state,
