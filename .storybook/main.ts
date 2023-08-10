@@ -7,8 +7,7 @@ const config: StorybookConfig = {
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/preset-create-react-app',
-    '@storybook/addon-interactions',
-    "addon-redux"
+    '@storybook/addon-interactions'
   ],
   docs: {
     autodocs: 'tag',
