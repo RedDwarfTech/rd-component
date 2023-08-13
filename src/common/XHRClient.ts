@@ -13,6 +13,7 @@ const instance = axios.create({
 
 instance.defaults.headers.post['Content-Type'] = 'application/json';
 instance.defaults.headers.delete['content-type'] = 'application/json';
+instance.defaults.headers.put['content-type'] = 'application/json';
 
 export const XHRClient = {
   requestWithoutAction: async (config: AxiosRequestConfig): Promise<any> => {
