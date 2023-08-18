@@ -24,6 +24,8 @@ import FileService from "./service/file/FileService";
 import SseClientService from "./service/sse/SseClientService";
 import { CountryCode } from "./models/common/phone/CountryCode";
 import { countryCodes } from "./models/common/phone/CountryCodeDef";
+import RdLogin from "./component/user/login/RdLogin";
+import RdReg from "./component/user/reg/RdReg";
 
 export {
     CommonPage,
@@ -47,7 +49,9 @@ export {
     OrderService,
     XHRClient,
     SseClientService,
-    countryCodes
+    countryCodes,
+    RdLogin,
+    RdReg
 };
 
 export type { 
