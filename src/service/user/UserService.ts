@@ -112,14 +112,25 @@ export const UserService = {
         const actionTypeString: string = UserActionType[UserActionType.USER_UNBIND];
         return XHRClient.requestWithActionType(config, actionTypeString, store);
     },
-    loadCurrUser: (force: boolean, url: string): UserModel => {
+    loadCurrUser: async (force: boolean, url: string): Promise<UserModel> => {
         let userInfo: UserModel = {
             nickname: 'unkown',
             autoRenewProductExpireTimeMs: 0,
             thirdBind: []
         };
         if (force) {
-            UserService.getCurrUser(url).then((data: any) => {
+            let data = await UserService.getCurrUser(url);
+            if (ResponseHandler.responseSuccess(data)) {
+                const uid = data.result.userId;
+                if (uid) {
+                    localStorage.setItem("userInfo", JSON.stringify(data.result));
+                    userInfo = uid;
+                }
+            }
+        } else {
+            const uInfo = localStorage.getItem("userInfo");
+            if (!uInfo) {
+                let data = await UserService.getCurrUser(url);
                 if (ResponseHandler.responseSuccess(data)) {
                     const uid = data.result.userId;
                     if (uid) {
@@ -127,19 +138,6 @@ export const UserService = {
                         userInfo = uid;
                     }
                 }
-            });
-        } else {
-            const uInfo = localStorage.getItem("userInfo");
-            if (!uInfo) {
-                UserService.getCurrUser(url).then((data: any) => {
-                    if (ResponseHandler.responseSuccess(data)) {
-                        const uid = data.result.userId;
-                        if (uid) {
-                            localStorage.setItem("userInfo", JSON.stringify(data.result));
-                            userInfo = uid;
-                        }
-                    }
-                });
             }
         }
         return userInfo;
