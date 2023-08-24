@@ -129,14 +129,15 @@ export const UserService = {
             }
         } else {
             const uInfo = localStorage.getItem("userInfo");
-            if (!uInfo) {
-                let data = await UserService.getCurrUser(url);
-                if (ResponseHandler.responseSuccess(data)) {
-                    const uid = data.result.userId;
-                    if (uid) {
-                        localStorage.setItem("userInfo", JSON.stringify(data.result));
-                        userInfo = uid;
-                    }
+            if(uInfo){
+                return JSON.parse(uInfo);
+            }
+            let data = await UserService.getCurrUser(url);
+            if (ResponseHandler.responseSuccess(data)) {
+                const uid = data.result.userId;
+                if (uid) {
+                    localStorage.setItem("userInfo", JSON.stringify(data.result));
+                    userInfo = uid;
                 }
             }
         }
