@@ -5,13 +5,13 @@
 .container {
     margin: 0 auto;
     width: 80%;
-    max-width: 800px;
+    max-width: 900px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-start;
     margin-top: 50px;
-    align-items: stretch;
+    gap: 1px;
 }
 
 .package {
