@@ -1,4 +1,4 @@
-export type userAction = loginByPhoneAction | userLoginAction | getCurrentUserAction | handleUserUnbindAction;
+export type userAction = loginByPhoneAction | userLoginAction | getCurrentUserAction | handleUserUnbindAction| setNicknameAction;
 
 export enum UserActionType {
   LOGIN_BY_PHONE,
@@ -7,7 +7,8 @@ export enum UserActionType {
   USER_REG,
   SEND_VERIFY_CODE,
   RESET_PWD,
-  USER_UNBIND
+  USER_UNBIND,
+  SET_NICKNAME,
 }
 
 export interface loginByPhoneAction {
@@ -42,5 +43,10 @@ export interface resetPwdAction {
 
 export interface handleUserUnbindAction {
   type: UserActionType.USER_UNBIND;
+  data: any;
+}
+
+export interface setNicknameAction {
+  type: UserActionType.SET_NICKNAME;
   data: any;
 }

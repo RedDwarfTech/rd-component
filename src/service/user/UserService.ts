@@ -98,6 +98,16 @@ export const UserService = {
         const actionTypeString: string = UserActionType[UserActionType.RESET_PWD];
         return XHRClient.requestWithActionType(config, actionTypeString, store);
     },
+    doSetNickname: (params: any, url: string, store: Store<any, AnyAction>) => {
+        const config = {
+            method: 'patch',
+            url: url,
+            headers: { 'Content-Type': 'application/json' },
+            data: JSON.stringify(params)
+        };
+        const actionTypeString: string = UserActionType[UserActionType.SET_NICKNAME];
+        return XHRClient.requestWithActionType(config, actionTypeString, store);
+    },
     getCurrLang: () => {
         const userLanguage = navigator.language;
         const cachedLang = localStorage.getItem('userLanguage');
