@@ -108,7 +108,7 @@ export const XHRClient = {
               refreshTimes = 0;
               pendingRequestsQueue.forEach((request) => {
                 const accessToken = localStorage.getItem(WheelGlobal.ACCESS_TOKEN_NAME);
-                request.headers['x-access-token'] = accessToken;
+                request.headers['Authorization'] = 'Bearer ' + accessToken;
                 request.headers['x-request-id'] = uuidv4();
                 instance(request).then((resp: any) => {
                   if (!store) return;
