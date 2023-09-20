@@ -20,6 +20,11 @@ const UserReducer = (state=initState, action: any) => {
                 ...state,
                 loginUser: action.data
             };
+        case "SET_NICKNAME":
+            return {
+                ...state,
+                loginUser: action.data
+            };
         default:
             break;
     }

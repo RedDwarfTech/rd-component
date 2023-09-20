@@ -2,6 +2,7 @@ import axios, { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } 
 import { v4 as uuidv4 } from 'uuid';
 import { ApiResponse, RequestHandler, ResponseCode, ResponseHandler, WheelGlobal } from 'rdjs-wheel';
 import { AnyAction, Store } from 'redux';
+import http from 'http';
 
 let isRefreshing = false;
 let refreshTimes = 0;
@@ -91,8 +92,10 @@ export const XHRClient = {
         pendingRequestsQueue.push(originalRequest);
       }
       if (!isRefreshing && refreshTimes <=3) {
+        // https://stackoverflow.com/questions/77139090/which-http-code-should-i-choose-when-jwt-token-expired
         if (response.data.resultCode === ResponseCode.ACCESS_TOKEN_EXPIRED
-          || response.data.resultCode === ResponseCode.ACCESS_TOKEN_INVALID) {
+          || response.data.resultCode === ResponseCode.ACCESS_TOKEN_INVALID 
+          || response.status == 401 || response.status == 440) {
           pendingRequestsQueue.push(originalRequest);
           isRefreshing = true;
           refreshTimes = refreshTimes + 1;
