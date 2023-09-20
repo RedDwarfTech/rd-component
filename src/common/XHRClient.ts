@@ -76,7 +76,7 @@ export const XHRClient = {
   addRequiredHeaders: (store?: Store<any, AnyAction>) => {
     instance.interceptors.request.use((request) => {
       const accessToken = localStorage.getItem(WheelGlobal.ACCESS_TOKEN_NAME);
-      accessToken && (request.headers['x-access-token'] = accessToken);
+      accessToken && (request.headers['Authorization'] = 'Bearer ' + accessToken);
       request.headers['x-request-id'] = uuidv4();
       return request
     },
