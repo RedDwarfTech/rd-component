@@ -26,6 +26,7 @@ import { CountryCode } from "./models/common/phone/CountryCode";
 import { countryCodes } from "./models/common/phone/CountryCodeDef";
 import RdLogin from "./component/user/login/RdLogin";
 import RdReg from "./component/user/reg/RdReg";
+import { Order } from "./models/order/Order";
 
 export {
     CommonPage,
@@ -61,5 +62,6 @@ export type {
     IOrder,
     IUploadedFile,
     fileAction,
-    CountryCode
+    CountryCode,
+    Order
  };
