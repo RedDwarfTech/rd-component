@@ -1,6 +1,7 @@
 
 const initState = {
-    order: {}
+    order: {},
+    orderList: [],
 };
 
 const OrderReducer = (state = initState, action: any) => {
@@ -9,6 +10,11 @@ const OrderReducer = (state = initState, action: any) => {
             return {
                 ...state,
                 order: action.data
+            };
+        case "GET_ORDER_LIST":
+            return {
+                ...state,
+                orderList: action.data
             };
         default:
             break;
