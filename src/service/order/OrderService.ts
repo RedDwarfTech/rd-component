@@ -16,7 +16,7 @@ export const OrderService:any = {
             method: 'get',
             url: '/post/order/list',
         };
-        const actionTypeString: string = OrderActionType[OrderActionType.GET_ORDER_STATUS];
+        const actionTypeString: string = OrderActionType[OrderActionType.GET_ORDER_LIST];
         return XHRClient.requestWithActionType(config, actionTypeString, store);
     }
 }
