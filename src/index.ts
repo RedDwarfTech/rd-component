@@ -27,6 +27,7 @@ import { countryCodes } from "./models/common/phone/CountryCodeDef";
 import RdLogin from "./component/user/login/RdLogin";
 import RdReg from "./component/user/reg/RdReg";
 import { Order } from "./models/order/Order";
+import { Dictionary, orderStatus } from "./models/common/enumn/Dictionary";
 
 export {
     CommonPage,
@@ -52,7 +53,8 @@ export {
     SseClientService,
     countryCodes,
     RdLogin,
-    RdReg
+    RdReg,
+    orderStatus
 };
 
 export type { 
@@ -63,5 +65,6 @@ export type {
     IUploadedFile,
     fileAction,
     CountryCode,
-    Order
+    Order,
+    Dictionary
  };
