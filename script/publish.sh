@@ -1,3 +1,1 @@
-
-npm run build && npm pack && npm publish
-
+pnpm run build && pnpm pack && pnpm publish

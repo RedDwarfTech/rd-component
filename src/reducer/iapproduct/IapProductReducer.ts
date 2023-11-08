@@ -1,14 +1,13 @@
-
 const initState = {
-    iapproducts:{}
+    iapproducts: {}
 };
 
-const IapProductReducer = (state=initState, action:any) => {
+const IapProductReducer = (state = initState, action: any) => {
     switch (action.type) {
         case "GET_IAP_PRODUCT":
             return {
                 ...state,
-                iapproducts: action.data.productDetails 
+                iapproducts: action.data ? action.data.productDetails : {}
             };
         default:
             break;
@@ -17,5 +16,3 @@ const IapProductReducer = (state=initState, action:any) => {
 };
 
 export default IapProductReducer;
-
-
