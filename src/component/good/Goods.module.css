@@ -28,6 +28,11 @@
     box-shadow: 3px 3px 5px #ccc;
     display: flex;
     flex-direction: column;
+    /**
+    * setting the min width to avoid the popup window
+    * shrink the width too small
+    **/
+    min-width: 200px;
 }
 
 .package h2 {
