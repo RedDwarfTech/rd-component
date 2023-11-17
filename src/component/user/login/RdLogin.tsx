@@ -1,12 +1,13 @@
 import React, { useRef, useState } from "react";
 import styles from "./RdLogin.module.css";
-import FingerprintJS from '@fingerprintjs/fingerprintjs';
-import 'react-toastify/dist/ReactToastify.css';
-import { toast, ToastContainer } from 'react-toastify';
+import FingerprintJS from "@fingerprintjs/fingerprintjs";
+import "react-toastify/dist/ReactToastify.css";
+import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { ResponseHandler } from "rdjs-wheel";
 import { AnyAction, Store } from "redux";
 import UserService from "@/service/user/UserService";
+import Turnstile, { useTurnstile } from "react-turnstile";
 
 interface ILoginProp {
   appId: string;
@@ -16,12 +17,13 @@ interface ILoginProp {
 }
 
 const RdLogin: React.FC<ILoginProp> = (props: ILoginProp) => {
-
   const fpPromise = FingerprintJS.load();
   const [activeTab, setActiveTab] = useState<String>("");
+  const [cfVerifyToken, setCfVerifyToken] = useState<String>("");
   const phoneInputRef = useRef(null);
   const passwordInputRef = useRef(null);
   const navigate = useNavigate();
+  const turnstile = useTurnstile();
 
   React.useEffect(() => {
     setDefaultTab();
@@ -34,9 +36,12 @@ const RdLogin: React.FC<ILoginProp> = (props: ILoginProp) => {
         element.click();
       }
     }
-  }
+  };
 
-  const openCity = (evt: React.MouseEvent<HTMLButtonElement>, cityName: string): void => {
+  const openCity = (
+    evt: React.MouseEvent<HTMLButtonElement>,
+    cityName: string
+  ): void => {
     setActiveTab(cityName);
     let i: number;
     const tabcontent = document.querySelectorAll(`.${styles.tabcontent}`);
@@ -45,7 +50,9 @@ const RdLogin: React.FC<ILoginProp> = (props: ILoginProp) => {
     }
     const tablinks = document.querySelectorAll(`.${styles.tablinks}`);
     for (i = 0; i < tablinks.length; i++) {
-      (tablinks[i] as HTMLElement).className = (tablinks[i] as HTMLElement).className.replace(" active", "");
+      (tablinks[i] as HTMLElement).className = (
+        tablinks[i] as HTMLElement
+      ).className.replace(" active", "");
     }
     const cityElement = document.getElementById(cityName);
     if (cityElement) {
@@ -56,32 +63,43 @@ const RdLogin: React.FC<ILoginProp> = (props: ILoginProp) => {
 
   const handlePhoneLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!phoneInputRef.current || (phoneInputRef.current as HTMLInputElement).value.length === 0) {
-      debugger
+    if (
+      !phoneInputRef.current ||
+      (phoneInputRef.current as HTMLInputElement).value.length === 0
+    ) {
+      debugger;
       toast("请输入用户名!");
       return;
     }
-    if (!passwordInputRef.current || (passwordInputRef.current as HTMLInputElement).value.length === 0) {
+    if (
+      !passwordInputRef.current ||
+      (passwordInputRef.current as HTMLInputElement).value.length === 0
+    ) {
       toast("请输入密码!");
       return;
     }
     let values = {
       phone: (phoneInputRef.current as HTMLInputElement).value,
-      password: (passwordInputRef.current as HTMLInputElement).value
+      password: (passwordInputRef.current as HTMLInputElement).value,
     };
-    ; (async () => {
+    (async () => {
       // Get the visitor identifier when you need it.
-      const fp = await fpPromise
-      const result = await fp.get()
+      const fp = await fpPromise;
+      const result = await fp.get();
       let params = {
         ...values,
         deviceId: result.visitorId,
         deviceName: result.visitorId,
         deviceType: 4,
         appId: props.appId,
-        loginType: 1
+        loginType: 1,
+        cfToken: cfVerifyToken
       };
-      UserService.userLoginByPhoneImpl(params, props.store, props.loginUrl).then((res) => {
+      UserService.userLoginByPhoneImpl(
+        params,
+        props.store,
+        props.loginUrl
+      ).then((res) => {
         if (ResponseHandler.responseSuccess(res)) {
           navigate("/");
         } else {
@@ -89,66 +107,115 @@ const RdLogin: React.FC<ILoginProp> = (props: ILoginProp) => {
         }
       });
     })();
-  }
+  };
 
   const userAlipayQrCodeLogin = () => {
     let param = {
-      appId: props.appId
+      appId: props.appId,
     };
-    UserService.userLoginImpl(param, props.store, "/post/alipay/login/getQRCodeUrl").then((data: any) => {
+    UserService.userLoginImpl(
+      param,
+      props.store,
+      "/post/alipay/login/getQRCodeUrl"
+    ).then((data: any) => {
       window.location.href = data.result;
     });
-  }
+  };
 
   const userWechatQrCodeLogin = () => {
     let param = {
-      appId: props.appId
+      appId: props.appId,
     };
-    UserService.userLoginImpl(param, props.store, "/post/wechat/login/getQRCodeUrl").then((data: any) => {
+    UserService.userLoginImpl(
+      param,
+      props.store,
+      "/post/wechat/login/getQRCodeUrl"
+    ).then((data: any) => {
       window.location.href = data.result;
     });
-  }
+  };
 
   return (
     <div className={styles.loginContainer}>
       <div className={styles.loginForm}>
         <div className={styles.loginTabs}>
-          <button id="phoneTabs" className={styles.tablinks} onClick={(e) => { openCity(e, "phone") }}>手机号登录</button>
-          <button className={styles.tablinks} onClick={(e) => { userWechatQrCodeLogin() }}>微信扫码登录</button>
-          <button className={styles.tablinks} onClick={(e) => { userAlipayQrCodeLogin() }}>支付宝扫码登录</button>
+          <button
+            id="phoneTabs"
+            className={styles.tablinks}
+            onClick={(e) => {
+              openCity(e, "phone");
+            }}
+          >
+            手机号登录
+          </button>
+          <button
+            className={styles.tablinks}
+            onClick={(e) => {
+              userWechatQrCodeLogin();
+            }}
+          >
+            微信扫码登录
+          </button>
+          <button
+            className={styles.tablinks}
+            onClick={(e) => {
+              userAlipayQrCodeLogin();
+            }}
+          >
+            支付宝扫码登录
+          </button>
         </div>
         <div id="phone" className={styles.tabcontent}>
           <h5>登录</h5>
-          <form method="post" className={styles.loginElement} onSubmit={(e) => handlePhoneLogin(e)}>
+          <form
+            method="post"
+            className={styles.loginElement}
+            onSubmit={(e) => handlePhoneLogin(e)}
+          >
             <div className={styles.userName}>
               <select id="countryCode" className={styles.countryCodeSelect}>
                 <option value="+86">+86</option>
                 <option value="+1">+1</option>
               </select>
-              <input type="text" ref={phoneInputRef} id="phone" placeholder="请输入手机号码" />
+              <input
+                type="text"
+                ref={phoneInputRef}
+                id="phone"
+                placeholder="请输入手机号码"
+              />
             </div>
             <div className={styles.password}>
-              <input type="password" ref={passwordInputRef} placeholder="密码" name="p"></input>
+              <input
+                type="password"
+                ref={passwordInputRef}
+                placeholder="密码"
+                name="p"
+              ></input>
             </div>
             <div>
-              <div className="cf-turnstile" data-sitekey={props.cfSiteKey}></div>
+              <Turnstile
+                sitekey={props.cfSiteKey}
+                onVerify={(token) => {
+                  setCfVerifyToken(token);
+                }}
+              />
             </div>
             <div className={styles.operate}>
-              <button className={styles.loginButton} type="submit">登录</button>
+              <button className={styles.loginButton} type="submit">
+                登录
+              </button>
             </div>
             <div>
               <a href="/user/reg">没有账号，去注册</a>
             </div>
           </form>
         </div>
-        <div id="wechat" className={styles.tabcontent}>
-        </div>
-        <div id="alipay" className={styles.tabcontent}>
-        </div>
+        <div id="wechat" className={styles.tabcontent}></div>
+        <div id="alipay" className={styles.tabcontent}></div>
       </div>
       <ToastContainer />
     </div>
   );
-}
+};
 
 export default RdLogin;
