@@ -12,6 +12,7 @@ interface ILoginProp {
   appId: string;
   store: Store<any, AnyAction>;
   loginUrl: string;
+  cfSiteKey: string;
 }
 
 const RdLogin: React.FC<ILoginProp> = (props: ILoginProp) => {
@@ -128,6 +129,9 @@ const RdLogin: React.FC<ILoginProp> = (props: ILoginProp) => {
             </div>
             <div className={styles.password}>
               <input type="password" ref={passwordInputRef} placeholder="密码" name="p"></input>
+            </div>
+            <div>
+              <div className="cf-turnstile" data-sitekey={props.cfSiteKey}></div>
             </div>
             <div className={styles.operate}>
               <button className={styles.loginButton} type="submit">登录</button>
