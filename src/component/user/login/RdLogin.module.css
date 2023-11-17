@@ -110,6 +110,10 @@
     font-size: 16px;
 }
 
+.turnstile{
+    margin-top: 20px;
+}
+
 .loginButton {
     padding: 10px;
     border-radius: 5px;

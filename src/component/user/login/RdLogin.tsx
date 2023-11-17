@@ -194,6 +194,7 @@ const RdLogin: React.FC<ILoginProp> = (props: ILoginProp) => {
             </div>
             <div>
               <Turnstile
+                className={styles.turnstile}
                 sitekey={props.cfSiteKey}
                 onVerify={(token) => {
                   setCfVerifyToken(token);
