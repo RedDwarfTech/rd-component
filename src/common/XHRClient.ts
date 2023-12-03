@@ -41,64 +41,61 @@ export const XHRClient = {
     XHRClient.addRequiredHeaders(store);
     return instance(config).then((response: AxiosResponse) => {
       const appResponse: ApiResponse = response.data;
-      if (ResponseHandler.responseSuccess(appResponse)) {
-        const data = appResponse.result;
-        const localAction = {
-          type: actionType,
-          data: data
-        };
-        store.dispatch(localAction);
-        return appResponse;
-      } else {
-        return appResponse;
-      }
+      const data = appResponse.result;
+      const dispachType = ResponseHandler.responseSuccess(appResponse) ? actionType : "ERROR_BROADCAST";
+      const localAction = {
+        type: dispachType,
+        data: data
+      };
+      store.dispatch(localAction);
+      return appResponse;
     }).catch((error: any) => {
       console.error(error);
     });
   },
-  handleExpire:(response: AxiosResponse<any, any>,store?: Store<any, AnyAction>)=>{
+  handleExpire: (response: AxiosResponse<any, any>, store?: Store<any, AnyAction>) => {
     const originalRequest: InternalAxiosRequestConfig<any> = response.config;
-      if (isRefreshing) {
+    if (isRefreshing) {
+      pendingRequestsQueue.push(originalRequest);
+    }
+    if (!isRefreshing && refreshTimes <= 3) {
+      // https://stackoverflow.com/questions/77139090/which-http-code-should-i-choose-when-jwt-token-expired
+      if (response.data.resultCode === ResponseCode.ACCESS_TOKEN_EXPIRED
+        || response.data.resultCode === ResponseCode.ACCESS_TOKEN_INVALID
+        || response.status == 401 || response.status == 440) {
         pendingRequestsQueue.push(originalRequest);
-      }
-      if (!isRefreshing && refreshTimes <= 3) {
-        // https://stackoverflow.com/questions/77139090/which-http-code-should-i-choose-when-jwt-token-expired
-        if (response.data.resultCode === ResponseCode.ACCESS_TOKEN_EXPIRED
-          || response.data.resultCode === ResponseCode.ACCESS_TOKEN_INVALID
-          || response.status == 401 || response.status == 440) {
-          pendingRequestsQueue.push(originalRequest);
-          isRefreshing = true;
-          refreshTimes = refreshTimes + 1;
-          // refresh the access token
-          RequestHandler.handleWebAccessTokenExpire()
-            .then((data: any) => {
-              if (!ResponseHandler.responseSuccess(data)) {
-                return;
-              }
-              isRefreshing = false;
-              refreshTimes = 0;
-              pendingRequestsQueue.forEach((request) => {
-                const accessToken = localStorage.getItem(WheelGlobal.ACCESS_TOKEN_NAME);
-                request.headers['Authorization'] = 'Bearer ' + accessToken;
-                request.headers['x-request-id'] = uuidv4();
-                instance(request).then((resp: any) => {
-                  if (!store) return;
-                  const actionType = response.config.headers['x-action'];
-                  if (actionType) {
-                    const data = resp.data.result;
-                    const action = {
-                      type: actionType,
-                      data: data
-                    };
-                    // change the state to make it render the UI
-                    store.dispatch(action);
-                  }
-                });
+        isRefreshing = true;
+        refreshTimes = refreshTimes + 1;
+        // refresh the access token
+        RequestHandler.handleWebAccessTokenExpire()
+          .then((data: any) => {
+            if (!ResponseHandler.responseSuccess(data)) {
+              return;
+            }
+            isRefreshing = false;
+            refreshTimes = 0;
+            pendingRequestsQueue.forEach((request) => {
+              const accessToken = localStorage.getItem(WheelGlobal.ACCESS_TOKEN_NAME);
+              request.headers['Authorization'] = 'Bearer ' + accessToken;
+              request.headers['x-request-id'] = uuidv4();
+              instance(request).then((resp: any) => {
+                if (!store) return;
+                const actionType = response.config.headers['x-action'];
+                if (actionType) {
+                  const data = resp.data.result;
+                  const action = {
+                    type: actionType,
+                    data: data
+                  };
+                  // change the state to make it render the UI
+                  store.dispatch(action);
+                }
               });
-              pendingRequestsQueue = [];
             });
-        }
+            pendingRequestsQueue = [];
+          });
       }
+    }
   },
   requestWithAction: (config: AxiosRequestConfig, action: any, store: Store<any, AnyAction>) => {
     const actionJson = action({}).type;
@@ -131,12 +128,12 @@ export const XHRClient = {
     )
 
     instance.interceptors.response.use((response: AxiosResponse<any, any>) => {
-      XHRClient.handleExpire(response,store);
+      XHRClient.handleExpire(response, store);
       return response;
     },
       (error: AxiosError) => {
-        if(error.response?.status === 401 || error.response?.status === 440){
-          XHRClient.handleExpire(error.response,store);
+        if (error.response?.status === 401 || error.response?.status === 440) {
+          XHRClient.handleExpire(error.response, store);
         }
         return Promise.reject(error)
       }
