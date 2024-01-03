@@ -28,6 +28,7 @@ import RdLogin from "./component/user/login/RdLogin";
 import RdReg from "./component/user/reg/RdReg";
 import { Order } from "./models/order/Order";
 import { Dictionary, orderStatus } from "./models/common/enumn/Dictionary";
+import { OrderReq } from "./models/order/OrderReq";
 
 export {
     CommonPage,
@@ -66,5 +67,6 @@ export type {
     fileAction,
     CountryCode,
     Order,
+    OrderReq,
     Dictionary
  };
