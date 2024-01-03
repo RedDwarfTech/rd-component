@@ -3,7 +3,8 @@ export type orderAction = getOrderStatusAction | getOrderAction | getOrdeListAct
 export enum OrderActionType {
     GET_ORDER_STATUS,
     GET_ORDER,
-    GET_ORDER_LIST
+    GET_ORDER_LIST,
+    GET_ORDER_PAGE
 }
 
 export interface getOrderStatusAction {
@@ -18,5 +19,10 @@ export interface getOrderAction {
 
 export interface getOrdeListAction {
     type: OrderActionType.GET_ORDER_LIST;
+    data: any;
+}
+
+export interface getOrdePageAction {
+    type: OrderActionType.GET_ORDER_PAGE;
     data: any;
 }

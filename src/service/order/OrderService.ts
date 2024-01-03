@@ -18,6 +18,14 @@ export const OrderService:any = {
         };
         const actionTypeString: string = OrderActionType[OrderActionType.GET_ORDER_LIST];
         return XHRClient.requestWithActionType(config, actionTypeString, store);
+    },
+    getUserOrderPage: (store: Store<any, AnyAction>) => {
+        const config = {
+            method: 'get',
+            url: '/post/order/page',
+        };
+        const actionTypeString: string = OrderActionType[OrderActionType.GET_ORDER_PAGE];
+        return XHRClient.requestWithActionType(config, actionTypeString, store);
     }
 }
 

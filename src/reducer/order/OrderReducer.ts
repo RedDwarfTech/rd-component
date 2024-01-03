@@ -2,6 +2,7 @@
 const initState = {
     order: {},
     orderList: [],
+    orderPage: {}
 };
 
 const OrderReducer = (state = initState, action: any) => {
@@ -15,6 +16,11 @@ const OrderReducer = (state = initState, action: any) => {
             return {
                 ...state,
                 orderList: action.data
+            };
+        case "GET_ORDER_PAGE":
+            return {
+                ...state,
+                orderPage: action.data
             };
         default:
             break;
