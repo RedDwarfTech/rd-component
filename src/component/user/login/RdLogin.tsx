@@ -14,6 +14,7 @@ interface ILoginProp {
   store: Store<any, AnyAction>;
   loginUrl: string;
   cfSiteKey: string;
+  enableWechatLogin: boolean;
 }
 
 const RdLogin: React.FC<ILoginProp> = (props: ILoginProp) => {
@@ -135,6 +136,19 @@ const RdLogin: React.FC<ILoginProp> = (props: ILoginProp) => {
     });
   };
 
+  const renderWechatLogins = () => {
+    if(props.enableWechatLogin){
+      return (<button
+        className={styles.tablinks}
+        onClick={(e) => {
+          userWechatQrCodeLogin();
+        }}
+      >
+        微信扫码登录
+      </button>);
+    }
+  }
+
   return (
     <div className={styles.loginContainer}>
       <div className={styles.loginForm}>
@@ -148,14 +162,7 @@ const RdLogin: React.FC<ILoginProp> = (props: ILoginProp) => {
           >
             手机号登录
           </button>
-          <button
-            className={styles.tablinks}
-            onClick={(e) => {
-              userWechatQrCodeLogin();
-            }}
-          >
-            微信扫码登录
-          </button>
+          {renderWechatLogins()}
           <button
             className={styles.tablinks}
             onClick={(e) => {
