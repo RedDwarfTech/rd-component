@@ -17,30 +17,12 @@ interface IRegProp {
 const RdReg: React.FC<IRegProp> = (props: IRegProp) => {
 
     const fpPromise = FingerprintJS.load();
-    const [activeTab, setActiveTab] = useState<String>("");
     const phoneInputRef = useRef(null);
     const passwordInputRef = useRef(null);
+    const passwordReinputRef = useRef(null);
     const navigate = useNavigate();
 
-    const openCity = (evt: React.MouseEvent<HTMLButtonElement>, cityName: string): void => {
-        setActiveTab(cityName);
-        let i: number;
-        const tabcontent = document.querySelectorAll(`.${styles.tabcontent}`);
-        for (i = 0; i < tabcontent.length; i++) {
-            (tabcontent[i] as HTMLElement).style.display = "none";
-        }
-        const tablinks = document.querySelectorAll(`.${styles.tablinks}`);
-        for (i = 0; i < tablinks.length; i++) {
-            (tablinks[i] as HTMLElement).className = (tablinks[i] as HTMLElement).className.replace(" active", "");
-        }
-        const cityElement = document.getElementById(cityName);
-        if (cityElement) {
-            cityElement.style.display = "block";
-        }
-        (evt.currentTarget as HTMLElement).className += " active";
-    };
-
-    const handlePhoneLogin = (e: React.FormEvent<HTMLFormElement>) => {
+    const handlePhoneReg = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!phoneInputRef.current || (phoneInputRef.current as HTMLInputElement).value.length === 0) {
             debugger
@@ -51,9 +33,19 @@ const RdReg: React.FC<IRegProp> = (props: IRegProp) => {
             toast("请输入密码!");
             return;
         }
+        if (!passwordReinputRef.current || (passwordReinputRef.current as HTMLInputElement).value.length === 0) {
+            toast("请输入密码!");
+            return;
+        }
+        let pwd = (passwordInputRef.current as HTMLInputElement).value;
+        let reinputPwd = (passwordReinputRef.current as HTMLInputElement).value;
+        if(pwd != reinputPwd) {
+            toast("输入密码不一致!");
+            return;
+        }
         let values = {
             phone: (phoneInputRef.current as HTMLInputElement).value,
-            password: (passwordInputRef.current as HTMLInputElement).value
+            password: pwd
         };
         ; (async () => {
             // Get the visitor identifier when you need it.
@@ -67,11 +59,11 @@ const RdReg: React.FC<IRegProp> = (props: IRegProp) => {
                 appId: props.appId,
                 loginType: 1
             };
-            UserService.userReg(params, props.store, props.regUrl).then((res:any) => {
-                if(ResponseHandler.responseSuccess(res)){
+            UserService.userReg(params, props.store, props.regUrl).then((res: any) => {
+                if (ResponseHandler.responseSuccess(res)) {
                     toast.success("注册成功");
                     navigate("/user/login");
-                }else{
+                } else {
                     toast.error(res.msg);
                 }
             });
@@ -81,7 +73,7 @@ const RdReg: React.FC<IRegProp> = (props: IRegProp) => {
     return (
         <div className={styles.regContainer}>
             <div className={styles.regForm}>
-                <form method="post" className={styles.loginElement} onSubmit={(e) => handlePhoneLogin(e)}>
+                <form method="post" className={styles.loginElement} onSubmit={(e) => handlePhoneReg(e)}>
                     <h5>注册</h5>
                     <div className={styles.userName}>
                         <select id="countryCode" className={styles.countryCodeSelect}>
@@ -92,6 +84,9 @@ const RdReg: React.FC<IRegProp> = (props: IRegProp) => {
                     </div>
                     <div className={styles.password}>
                         <input type="password" ref={passwordInputRef} placeholder="密码" name="p"></input>
+                    </div>
+                    <div className={styles.password}>
+                        <input type="password" ref={passwordReinputRef} placeholder="再次输入密码" name="p"></input>
                     </div>
                     <div className={styles.operate}>
                         <button className={styles.loginButton} type="submit">注册</button>
