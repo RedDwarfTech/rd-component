@@ -213,8 +213,9 @@ const RdLogin: React.FC<ILoginProp> = (props: ILoginProp) => {
                 登录
               </button>
             </div>
-            <div>
+            <div className={styles.handleSituation}>
               <a href="/user/reg">没有账号，去注册</a>
+              <a href="/user/pwd/retrieve">忘记密码？</a>
             </div>
           </form>
         </div>
