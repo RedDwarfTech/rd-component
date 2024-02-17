@@ -21,7 +21,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 90%
+  width: 90%;
+  gap: 10px;
 }
 
 .App-footer-divider{
