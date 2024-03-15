@@ -33,11 +33,17 @@ const RdReg: React.FC<IRegProp> = (props: IRegProp) => {
             toast("请输入密码!");
             return;
         }
+        let pwd = (passwordInputRef.current as HTMLInputElement).value;
+        let reg = /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[`~!@#$%^&*()-=_+;':",./<>?])(?=\S+$).{6,32}$/;
+        let pass = reg.test(pwd);
+        if(!pass){
+            toast("密码必须包含字母、数字和特殊符号且长度是6-32位!");
+            return;
+        }
         if (!passwordReinputRef.current || (passwordReinputRef.current as HTMLInputElement).value.length === 0) {
             toast("请输入密码!");
             return;
         }
-        let pwd = (passwordInputRef.current as HTMLInputElement).value;
         let reinputPwd = (passwordReinputRef.current as HTMLInputElement).value;
         if(pwd != reinputPwd) {
             toast("输入密码不一致!");
