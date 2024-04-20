@@ -1,6 +1,6 @@
 {
     "name": "rd-component",
-    "version": "0.1.159",
+    "version": "0.1.160",
     "type": "module",
     "description": "Reddwarf public component lib",
     "files": [
@@ -52,7 +52,7 @@
         "@types/redux-logger": "^3.0.9",
         "axios": "^1.4.0",
         "event-source-polyfill": "^1.0.31",
-        "rdjs-wheel": "0.0.23",
+        "rdjs-wheel": "^0.0.30",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-redux": "^8.1.0",
