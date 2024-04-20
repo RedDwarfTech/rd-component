@@ -75,6 +75,17 @@ export const XHRClient = {
         console.error(error);
       });
   },
+  handleRefreshTokenExpire(
+    response: AxiosResponse<any, any>,
+    store?: Store<any, AnyAction>
+  ) {
+    if (
+      response.data.resultCode === ResponseCode.REFRESH_TOKEN_EXPIRED || 
+      response.data.resultCode === ResponseCode.REFRESH_TOKEN_INVALID
+    ) {
+      window.location.href = "/login";
+    }
+  },
   handleExpire: (
     response: AxiosResponse<any, any>,
     store?: Store<any, AnyAction>
@@ -164,6 +175,7 @@ export const XHRClient = {
     instance.interceptors.response.use(
       (response: AxiosResponse<any, any>) => {
         XHRClient.handleExpire(response, store);
+        XHRClient.handleRefreshTokenExpire(response, store);
         return response;
       },
       (error: AxiosError) => {
