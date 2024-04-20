@@ -175,7 +175,7 @@ export const XHRClient = {
     instance.interceptors.response.use(
       (response: AxiosResponse<any, any>) => {
         XHRClient.handleExpire(response, store);
-        XHRClient.handleRefreshTokenExpire(response, store);
+        XHRClient.handleRefreshTokenExpire(response);
         return response;
       },
       (error: AxiosError) => {
