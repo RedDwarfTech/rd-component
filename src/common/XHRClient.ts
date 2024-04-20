@@ -76,8 +76,7 @@ export const XHRClient = {
       });
   },
   handleRefreshTokenExpire(
-    response: AxiosResponse<any, any>,
-    store?: Store<any, AnyAction>
+    response: AxiosResponse<any, any>
   ) {
     if (
       response.data.resultCode === ResponseCode.REFRESH_TOKEN_EXPIRED || 
@@ -108,6 +107,7 @@ export const XHRClient = {
         // refresh the access token
         RequestHandler.handleWebAccessTokenExpire().then((data: any) => {
           if (!ResponseHandler.responseSuccess(data)) {
+            window.location.href = "/user/login";
             return;
           }
           isRefreshing = false;
