@@ -19,6 +19,7 @@ interface IGoodsProp {
   appId: string;
   store: Store<any, AnyAction>;
   refreshUrl?: string;
+  reqUrl?: string;
 }
 
 const Goods: React.FC<IGoodsProp> = (props: IGoodsProp) => {

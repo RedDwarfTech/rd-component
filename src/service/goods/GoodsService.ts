@@ -5,7 +5,7 @@ import { AnyAction, Store } from 'redux';
 export function doGetIapProduct(store: Store<any, AnyAction>) {
     const config = {
         method: 'get',
-        url: '/post/product/v1/list',
+        url: "/infra/goods/list",
         headers: {'Content-Type': 'application/json'}
     };
     return XHRClient.requestWithAction(config, getIapProductsAction,store);
