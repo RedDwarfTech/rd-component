@@ -7,7 +7,7 @@ export const UserService = {
     getCurrentUser: (store: Store<any, AnyAction>) => {
         const config = {
             method: 'get',
-            url: '/post/user/current-user',
+            url: '/infra/user/current-user',
         };
         const actionTypeString: string = UserActionType[UserActionType.GET_CURRENT_USER];
         return XHRClient.requestWithActionType(config, actionTypeString, store);

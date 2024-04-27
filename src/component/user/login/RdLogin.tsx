@@ -117,7 +117,7 @@ const RdLogin: React.FC<ILoginProp> = (props: ILoginProp) => {
     UserService.userLoginImpl(
       param,
       props.store,
-      "/post/alipay/login/getQRCodeUrl"
+      "/infra/alipay/login/getQRCodeUrl"
     ).then((data: any) => {
       window.location.href = data.result;
     });
@@ -130,7 +130,7 @@ const RdLogin: React.FC<ILoginProp> = (props: ILoginProp) => {
     UserService.userLoginImpl(
       param,
       props.store,
-      "/post/wechat/login/getQRCodeUrl"
+      "/infra/wechat/login/getQRCodeUrl"
     ).then((data: any) => {
       window.location.href = data.result;
     });

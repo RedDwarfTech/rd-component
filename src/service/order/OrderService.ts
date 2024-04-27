@@ -7,7 +7,7 @@ export const OrderService:any = {
     getOrderStatus: (orderId: string,store: Store<any, AnyAction>) => {
         const config = {
             method: 'get',
-            url: '/post/order/status?orderId=' + orderId,
+            url: '/infra/order/status?orderId=' + orderId,
         };
         const actionTypeString: string = OrderActionType[OrderActionType.GET_ORDER_STATUS];
         return XHRClient.requestWithActionType(config, actionTypeString, store);
@@ -15,7 +15,7 @@ export const OrderService:any = {
     getUserOrderList: (store: Store<any, AnyAction>) => {
         const config = {
             method: 'get',
-            url: '/post/order/list',
+            url: '/infra/order/list',
         };
         const actionTypeString: string = OrderActionType[OrderActionType.GET_ORDER_LIST];
         return XHRClient.requestWithActionType(config, actionTypeString, store);
@@ -27,7 +27,7 @@ export const OrderService:any = {
         }
         const config = {
             method: 'get',
-            url: '/post/order/page',
+            url: '/infra/order/page',
             params: params
         };
         const actionTypeString: string = OrderActionType[OrderActionType.GET_ORDER_PAGE];

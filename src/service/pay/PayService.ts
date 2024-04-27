@@ -7,7 +7,7 @@ export const PayService:any = {
     doPay:(params: any, store: Store<any, AnyAction>)=>{
         const config = {
             method: 'post',
-            url: '/post/alipay/pay/createOrder',
+            url: '/infra/alipay/pay/createOrder',
             headers: { 'Content-Type': 'application/json' },
             data: JSON.stringify(params)
         };
