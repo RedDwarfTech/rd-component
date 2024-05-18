@@ -18,7 +18,7 @@ let isRefreshing = false;
 let refreshTimes = 0;
 // using hashmap to check the dulplicated request
 // avoid flood dulplicate request to server
-let pendingRequestsQueue: { [key: string]: any } = [];
+let pendingRequestsQueue: Map<string, InternalAxiosRequestConfig<any>> = new Map();
 
 const instance = axios.create({
   timeout: 60000,
@@ -95,7 +95,7 @@ export const XHRClient = {
     const fullUrl = `${or?.baseURL ?? ""} ${or?.url ?? ""} ${new URLSearchParams(or?.params).toString()}`;
     if (isRefreshing) {
       if(!pendingRequestsQueue.has(fullUrl)) {
-        pendingRequestsQueue.push(fullUrl,or);
+        pendingRequestsQueue.set(fullUrl,or);
       }
     }
     if (!isRefreshing && refreshTimes <= 3) {
@@ -106,9 +106,8 @@ export const XHRClient = {
         response.status == 401 ||
         response.status == 440
       ) {
-
         if(!pendingRequestsQueue.has(fullUrl)){
-          pendingRequestsQueue.push(fullUrl,or);
+          pendingRequestsQueue.set(fullUrl,or);
         }
         isRefreshing = true;
         refreshTimes = refreshTimes + 1;
@@ -120,7 +119,7 @@ export const XHRClient = {
           }
           isRefreshing = false;
           refreshTimes = 0;
-          pendingRequestsQueue.forEach((key: string,request: InternalAxiosRequestConfig<any>) => {
+          pendingRequestsQueue.forEach((request: InternalAxiosRequestConfig<any>,key: string) => {
             const accessToken = localStorage.getItem(
               WheelGlobal.ACCESS_TOKEN_NAME
             );
@@ -140,7 +139,7 @@ export const XHRClient = {
               }
             });
           });
-          pendingRequestsQueue = [];
+          pendingRequestsQueue.clear();
         });
       }
     }
