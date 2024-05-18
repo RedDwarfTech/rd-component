@@ -16,7 +16,9 @@ import { AnyAction, Store } from "redux";
 
 let isRefreshing = false;
 let refreshTimes = 0;
-let pendingRequestsQueue: Array<any> = [];
+// using hashmap to check the dulplicated request
+// avoid flood dulplicate request to server
+let pendingRequestsQueue: { [key: string]: any } = [];
 
 const instance = axios.create({
   timeout: 60000,
@@ -89,9 +91,12 @@ export const XHRClient = {
     response: AxiosResponse<any, any>,
     store?: Store<any, AnyAction>
   ) => {
-    const originalRequest: InternalAxiosRequestConfig<any> = response.config;
+    const or: InternalAxiosRequestConfig<any> = response.config;
+    const fullUrl = `${or?.baseURL ?? ""} ${or?.url ?? ""} ${new URLSearchParams(or?.params).toString()}`;
     if (isRefreshing) {
-      pendingRequestsQueue.push(originalRequest);
+      if(!pendingRequestsQueue.has(fullUrl)) {
+        pendingRequestsQueue.push(fullUrl,or);
+      }
     }
     if (!isRefreshing && refreshTimes <= 3) {
       // https://stackoverflow.com/questions/77139090/which-http-code-should-i-choose-when-jwt-token-expired
@@ -101,7 +106,10 @@ export const XHRClient = {
         response.status == 401 ||
         response.status == 440
       ) {
-        pendingRequestsQueue.push(originalRequest);
+
+        if(!pendingRequestsQueue.has(fullUrl)){
+          pendingRequestsQueue.push(fullUrl,or);
+        }
         isRefreshing = true;
         refreshTimes = refreshTimes + 1;
         // refresh the access token
@@ -112,7 +120,7 @@ export const XHRClient = {
           }
           isRefreshing = false;
           refreshTimes = 0;
-          pendingRequestsQueue.forEach((request) => {
+          pendingRequestsQueue.forEach((key: string,request: InternalAxiosRequestConfig<any>) => {
             const accessToken = localStorage.getItem(
               WheelGlobal.ACCESS_TOKEN_NAME
             );
