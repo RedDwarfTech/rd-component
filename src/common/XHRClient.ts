@@ -92,7 +92,13 @@ export const XHRClient = {
     store?: Store<any, AnyAction>
   ) => {
     const or: InternalAxiosRequestConfig<any> = response.config;
-    const fullUrl = `${or?.baseURL ?? ""} ${or?.url ?? ""} ${new URLSearchParams(or?.params).toString()}`;
+    /**
+     * 主要用于判断是否是同一个请求，没有将参数放入key
+     * 可能有的时候参数会携带当前时间
+     * 这样就没办法避免将同一个请求放入队列中，在Token刷新后反复发送相同的请求
+     * 造成请求风暴
+     */
+    const fullUrl = `${or?.baseURL ?? ""} ${or?.url ?? ""}`;
     if (isRefreshing) {
       if(!pendingRequestsQueue.has(fullUrl)) {
         pendingRequestsQueue.set(fullUrl,or);
