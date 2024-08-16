@@ -1,6 +1,6 @@
 {
     "name": "rd-component",
-    "version": "0.1.166",
+    "version": "0.1.167",
     "type": "module",
     "description": "Reddwarf public component lib",
     "files": [
@@ -38,7 +38,7 @@
     "devDependencies": {
         "@fingerprintjs/fingerprintjs": "^4.0.0",
         "@jest/globals": "^29.5.0",
-        "@reduxjs/toolkit": "^2.2.1",
+        "@reduxjs/toolkit": "^2.2.7",
         "@storybook/cli": "^7.0.21",
         "@storybook/react": "^7.0.21",
         "@storybook/react-vite": "^7.0.21",
