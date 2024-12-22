@@ -1,6 +1,6 @@
 {
     "name": "rd-component",
-    "version": "0.1.167",
+    "version": "0.1.168",
     "type": "module",
     "description": "Reddwarf public component lib",
     "files": [
@@ -38,7 +38,7 @@
     "devDependencies": {
         "@fingerprintjs/fingerprintjs": "^4.0.0",
         "@jest/globals": "^29.5.0",
-        "@reduxjs/toolkit": "^2.2.7",
+        "@reduxjs/toolkit": "^2.5.0",
         "@storybook/cli": "^7.0.21",
         "@storybook/react": "^7.0.21",
         "@storybook/react-vite": "^7.0.21",
@@ -53,11 +53,11 @@
         "axios": "^1.4.0",
         "event-source-polyfill": "^1.0.31",
         "rdjs-wheel": "^0.0.30",
-        "react": "^18.2.0",
+        "react": "^18.2.25",
         "react-dom": "^18.2.0",
-        "react-redux": "^8.1.0",
-        "react-router-dom": "^6.15.0",
-        "redux": "^4.2.1",
+        "react-redux": "^9.2.0",
+        "react-router-dom": "^7.0.2",
+        "redux": "^5.0.0",
         "redux-logger": "^3.0.6",
         "uuid": "^9.0.0",
         "vite": "^4.3.9",
