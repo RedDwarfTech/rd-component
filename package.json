@@ -1,6 +1,6 @@
 {
     "name": "rd-component",
-    "version": "0.1.169",
+    "version": "0.1.170",
     "type": "module",
     "description": "Reddwarf public component lib",
     "files": [
@@ -71,7 +71,7 @@
         "react-redux": "^8.0.5",
         "react-router-dom": "^7.0.2",
         "redux": "^4.2.1",
-        "uuid": "^9.0.0"
+        "uuid": "^11.1.0"
     },
     "dependencies": {
         "@babel/core": "^7.22.5",
