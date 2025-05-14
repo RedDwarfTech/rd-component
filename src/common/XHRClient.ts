@@ -135,7 +135,7 @@ export const XHRClient = {
               if (!store) return;
               const actionType = response.config.headers["x-action"];
               if (actionType) {
-                const data = resp.data.result;
+                const data: ApiResponse = resp.data;
                 const action = {
                   type: actionType,
                   data: data,
