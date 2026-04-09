@@ -18,7 +18,10 @@ let isRefreshing = false;
 let refreshTimes = 0;
 // using hashmap to check the dulplicated request
 // avoid flood dulplicate request to server
-let pendingRequestsQueue: Map<string, InternalAxiosRequestConfig<any>> = new Map();
+let pendingRequestsQueue: Map<
+  string,
+  InternalAxiosRequestConfig<any>
+> = new Map();
 
 const instance = axios.create({
   timeout: 60000,
@@ -42,7 +45,7 @@ export const XHRClient = {
   dispathAction: (
     data: any,
     actionType: string,
-    store: Store<any, AnyAction>
+    store: Store<any, AnyAction>,
   ) => {
     const localAction = {
       type: actionType,
@@ -53,7 +56,7 @@ export const XHRClient = {
   requestWithActionType: (
     config: AxiosRequestConfig,
     actionType: string,
-    store: Store<any, AnyAction>
+    store: Store<any, AnyAction>,
   ): Promise<any> => {
     const generalHeader = {
       "x-action": actionType,
@@ -77,11 +80,9 @@ export const XHRClient = {
         console.error(error);
       });
   },
-  handleRefreshTokenExpire(
-    response: AxiosResponse<any, any>
-  ) {
+  handleRefreshTokenExpire(response: AxiosResponse<any, any>) {
     if (
-      response.data.resultCode === ResponseCode.REFRESH_TOKEN_EXPIRED || 
+      response.data.resultCode === ResponseCode.REFRESH_TOKEN_EXPIRED ||
       response.data.resultCode === ResponseCode.REFRESH_TOKEN_INVALID
     ) {
       window.location.href = "/login";
@@ -89,8 +90,10 @@ export const XHRClient = {
   },
   handleExpire: (
     response: AxiosResponse<any, any>,
-    store?: Store<any, AnyAction>
+    store?: Store<any, AnyAction>,
   ) => {
+    // 1. 防止重新发送的请求再次触发刷新
+    if (isRefreshing) return;
     const or: InternalAxiosRequestConfig<any> = response.config;
     /**
      * 主要用于判断是否是同一个请求，没有将参数放入key
@@ -100,8 +103,8 @@ export const XHRClient = {
      */
     const fullUrl = `${or?.baseURL ?? ""} ${or?.url ?? ""}`;
     if (isRefreshing) {
-      if(!pendingRequestsQueue.has(fullUrl)) {
-        pendingRequestsQueue.set(fullUrl,or);
+      if (!pendingRequestsQueue.has(fullUrl)) {
+        pendingRequestsQueue.set(fullUrl, or);
       }
     }
     if (!isRefreshing && refreshTimes <= 3) {
@@ -112,8 +115,8 @@ export const XHRClient = {
         response.status == 401 ||
         response.status == 440
       ) {
-        if(!pendingRequestsQueue.has(fullUrl)){
-          pendingRequestsQueue.set(fullUrl,or);
+        if (!pendingRequestsQueue.has(fullUrl)) {
+          pendingRequestsQueue.set(fullUrl, or);
         }
         isRefreshing = true;
         refreshTimes = refreshTimes + 1;
@@ -125,35 +128,46 @@ export const XHRClient = {
           }
           isRefreshing = false;
           refreshTimes = 0;
-          pendingRequestsQueue.forEach((request: InternalAxiosRequestConfig<any>,key: string) => {
-            const accessToken = localStorage.getItem(
-              WheelGlobal.ACCESS_TOKEN_NAME
-            );
-            request.headers["Authorization"] = "Bearer " + accessToken;
-            request.headers["x-request-id"] = uuidv4();
-            instance(request).then((resp: any) => {
-              if (!store) return;
-              const actionType = response.config.headers["x-action"];
-              if (actionType) {
-                const data = resp.data.result;
-                const action = {
-                  type: actionType,
-                  data: data,
-                };
-                // change the state to make it render the UI
-                store.dispatch(action);
-              }
-            });
-          });
+          pendingRequestsQueue.forEach(
+            (request: InternalAxiosRequestConfig<any>, key: string) => {
+              const accessToken = localStorage.getItem(
+                WheelGlobal.ACCESS_TOKEN_NAME,
+              );
+              request.headers["Authorization"] = "Bearer " + accessToken;
+              request.headers["x-request-id"] = uuidv4();
+              instance(request)
+                .catch((error: any) => {
+                  if (error.response?.status === 401 && refreshTimes >= 3) {
+                    window.location.href = "/user/login";
+                  }
+                })
+                .then((resp: any) => {
+                  if (!store) return;
+                  const actionType = response.config.headers["x-action"];
+                  if (actionType) {
+                    const data = resp.data.result;
+                    const action = {
+                      type: actionType,
+                      data: data,
+                    };
+                    // change the state to make it render the UI
+                    store.dispatch(action);
+                  }
+                });
+            },
+          );
           pendingRequestsQueue.clear();
-        });
+        }).catch((error: any) => {
+          isRefreshing = false;
+          refreshTimes = 0;
+          window.location.href = "/user/login";
       }
     }
   },
   requestWithAction: (
     config: AxiosRequestConfig,
     action: any,
-    store: Store<any, AnyAction>
+    store: Store<any, AnyAction>,
   ) => {
     const actionJson = action({}).type;
     const generalHeader = {
@@ -182,7 +196,7 @@ export const XHRClient = {
       },
       (error: any) => {
         return Promise.reject(error);
-      }
+      },
     );
 
     instance.interceptors.response.use(
@@ -196,7 +210,7 @@ export const XHRClient = {
           XHRClient.handleExpire(error.response, store);
         }
         return Promise.reject(error);
-      }
+      },
     );
   },
 };
