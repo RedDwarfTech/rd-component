@@ -85,7 +85,7 @@ const Goods: React.FC<IGoodsProp> = (props: IGoodsProp) => {
         productSubList.push(
           <div key={uuid()} className={styles.package}>
             <h2>{item.productTitle}</h2>
-            <p className={styles.price}>{item.price}<span>元</span></p>
+            <p className={styles.price}>{item.price}<span>¥</span></p>
             <ul>
               {vipItems(item.description)}
             </ul>

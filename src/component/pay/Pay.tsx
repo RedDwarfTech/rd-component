@@ -36,7 +36,7 @@ const Pay: React.FC<PayProps> = (props) => {
       <div id="pay-mask" className="pay-mask"></div>
       <div id="pay-popup" className="pay-pop">
         <div className="pay-container" id="main">
-          <div className="pay-money">支付金额&nbsp;&nbsp;<span id="pay_price">{priceText}元</span></div>
+          <div className="pay-money">支付金额&nbsp;&nbsp;<span id="pay_price">{priceText}¥</span></div>
           <div>
             <div className="pay-img">
               <iframe srcDoc={formText}
