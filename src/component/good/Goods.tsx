@@ -20,6 +20,7 @@ interface IGoodsProp {
   store: Store<any, AnyAction>;
   refreshUrl?: string;
   reqUrl?: string;
+  lang?: string;
 }
 
 const Goods: React.FC<IGoodsProp> = (props: IGoodsProp) => {
@@ -63,7 +64,7 @@ const Goods: React.FC<IGoodsProp> = (props: IGoodsProp) => {
   };
 
   const getGoods = () => {
-    doGetIapProduct(props.store);
+    doGetIapProduct(props.store, props.lang);
   }
 
   const handlePay = (row: any) => {
