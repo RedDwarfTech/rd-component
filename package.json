@@ -1,6 +1,6 @@
 {
     "name": "rd-component",
-    "version": "0.1.183",
+    "version": "0.1.184",
     "type": "module",
     "description": "Reddwarf public component lib",
     "files": [
