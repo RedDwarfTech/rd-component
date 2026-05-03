@@ -1,6 +1,6 @@
 {
     "name": "rd-component",
-    "version": "0.1.184",
+    "version": "0.1.185",
     "type": "module",
     "description": "Reddwarf public component lib",
     "files": [
@@ -68,7 +68,7 @@
         "vite": "^8.0.10"
     },
     "peerDependencies": {
-        "@fingerprintjs/fingerprintjs": "^4.0.0",
+        "@fingerprintjs/fingerprintjs": "^5.2.0",
         "@reduxjs/toolkit": "^2.2.1",
         "react": "^19.2.0",
         "react-dom": "^19.2.0",
