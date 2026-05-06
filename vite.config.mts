@@ -2,9 +2,13 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'node:path';
 import { resolve } from 'path';
+import { esmExternalRequirePlugin } from 'rolldown/plugins';
 
 export default defineConfig({
     plugins: [
+        esmExternalRequirePlugin({
+            external: ['react', 'vue', /^node:/],
+          }),
         react({
             
         })

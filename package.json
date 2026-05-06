@@ -1,6 +1,6 @@
 {
     "name": "rd-component",
-    "version": "0.1.185",
+    "version": "0.1.186",
     "type": "module",
     "description": "Reddwarf public component lib",
     "files": [
@@ -90,6 +90,7 @@
         "query-string": "^9.3.1",
         "react-toastify": "^11.1.0",
         "react-turnstile": "^1.1.5",
+        "rolldown": "1.0.0-rc.18",
         "storybook": "^10.3.6",
         "ts-jest": "^29.4.9"
     }
