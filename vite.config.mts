@@ -7,7 +7,7 @@ import { esmExternalRequirePlugin } from 'rolldown/plugins';
 export default defineConfig({
     plugins: [
         esmExternalRequirePlugin({
-            external: ['react', 'vue', /^node:/],
+            external: ['use-sync-external-store','react', 'vue', /^node:/],
           }),
         react({
             
