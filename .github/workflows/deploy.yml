@@ -27,7 +27,7 @@ jobs:
           echo "y" | pnpm approve-builds  canvas esbuild core-js 2>/dev/null || true
     
       - name: Reinstall with approved builds
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm install --no-frozen-lockfile --allow-build=esbuild --allow-build=unrs-resolver
         env:
           CI: false
           PNPM_IGNORE_SCRIPTS: false
