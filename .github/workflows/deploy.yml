@@ -14,21 +14,23 @@ jobs:
           node-version: 22
       - name: Install pnpm
         run: npm install -g pnpm@latest
-        
+
       - name: Install dependencies (first pass to detect builds)
         run: pnpm install --no-frozen-lockfile || true
         env:
           CI: false
+          PNPM_IGNORE_SCRIPTS: false
 
       - name: List and approve builds
         run: |
           pnpm approve-builds --list || true
-          echo "y" | pnpm approve-builds canvas esbuild core-js 2>/dev/null || true
+          echo "y" | pnpm approve-builds  canvas esbuild core-js 2>/dev/null || true
     
       - name: Reinstall with approved builds
         run: pnpm install --no-frozen-lockfile
         env:
           CI: false
+          PNPM_IGNORE_SCRIPTS: false
 
       - name: Build
         run: pnpm run build
