@@ -23,7 +23,13 @@ interface IGoodsProp {
   lang?: string;
 }
 
-const Goods: React.FC<IGoodsProp> = (props: IGoodsProp) => {
+const Goods: React.FC<IGoodsProp> = ({ 
+  appId,
+  store,
+  refreshUrl = '',  // 在这里设置默认值
+  reqUrl,
+  lang
+}) => {
 
   const { iapproducts } = useSelector((state: any) => state.rdRootReducer.iapproduct);
   const { createdOrder } = useSelector((state: any) => state.rdRootReducer.pay);
@@ -52,7 +58,7 @@ const Goods: React.FC<IGoodsProp> = (props: IGoodsProp) => {
       setPayFrame(createdOrder.formText);
     }
     return () => {
-      PayService.doClearAlipayFormText(props.store);
+      PayService.doClearAlipayFormText(store);
     }
   }, [createdOrder]);
 
@@ -64,7 +70,7 @@ const Goods: React.FC<IGoodsProp> = (props: IGoodsProp) => {
   };
 
   const getGoods = () => {
-    doGetIapProduct(props.store, props.lang);
+    doGetIapProduct(store, lang);
   }
 
   const handlePay = (row: any) => {
@@ -72,14 +78,14 @@ const Goods: React.FC<IGoodsProp> = (props: IGoodsProp) => {
       productId: Number(row.id)
     };
     setCurrentProduct(row);
-    PayService.doPay(param, props.store);
+    PayService.doPay(param, store);
   };
 
   const productSubMenu = (serverDataSource: IapProduct[]) => {
     if (BaseMethods.isNull(serverDataSource)) {
       return (<div></div>);
     }
-    const productSubList: JSX.Element[] = [];
+    const productSubList: React.JSX.Element[] = [];
     serverDataSource.sort((a: IapProduct, b: IapProduct) => b.sort - a.sort)
       .forEach((item: IapProduct) => {
         productSubList.push(
@@ -98,7 +104,7 @@ const Goods: React.FC<IGoodsProp> = (props: IGoodsProp) => {
   const vipItems = (items: string) => {
     const parsedItmes = JSON.parse(items);
     if (parsedItmes) {
-      const itemList: JSX.Element[] = [];
+      const itemList: React.JSX.Element[] = [];
       parsedItmes.forEach((item: string) => {
         itemList.push(<li key={uuid()}>{item}</li>);
       });
@@ -112,15 +118,15 @@ const Goods: React.FC<IGoodsProp> = (props: IGoodsProp) => {
       return;
     }
     const orderId = createdOrderInfo.orderId;
-    OrderService.getOrderStatus(orderId, props.store).then((resp: any) => {
+    OrderService.getOrderStatus(orderId, store).then((resp: any) => {
       if (ResponseHandler.responseSuccess(resp)) {
         if (Number(resp.result.orderStatus) === 1) {
           setPayFrame('');
           setCreatedOrderInfo(undefined);
-          if (!props.refreshUrl || props.refreshUrl.length === 0) {
+          if (!refreshUrl || refreshUrl.length === 0) {
             return;
           }
-          UserService.loadCurrUser(true, props.refreshUrl);
+          UserService.loadCurrUser(true, refreshUrl);
           RequestHandler.handleWebAccessTokenExpire();
         } else {
           toast.warning("检测到订单当前未支付，请稍后再次确认");
@@ -140,10 +146,6 @@ const Goods: React.FC<IGoodsProp> = (props: IGoodsProp) => {
       <Pay payFormText={payFrame} price={currentProduct?.price!} payProvider={"支付宝"} onPayComplete={payComplete}></Pay>
     </div>
   );
-}
-
-Goods.defaultProps = {
-  refreshUrl: ''
 }
 
 export default withConnect(Goods);
