@@ -2,6 +2,11 @@
     "name": "rd-component",
     "version": "0.1.191",
     "type": "module",
+    "repository": "github:RedDwarfTech/rd-component",
+    "bugs": {
+        "url": "https://github.com/RedDwarfTech/rd-component/issues"
+    },
+    "homepage": "https://github.com/RedDwarfTech/rd-component#readme",
     "description": "Reddwarf public component lib",
     "files": [
         "dist"
