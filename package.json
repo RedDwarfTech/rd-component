@@ -1,6 +1,6 @@
 {
     "name": "rd-component",
-    "version": "0.1.191",
+    "version": "0.1.192",
     "type": "module",
     "repository": "github:RedDwarfTech/rd-component",
     "bugs": {
@@ -61,12 +61,7 @@
         "axios": "^1.16.1",
         "event-source-polyfill": "^1.0.31",
         "rdjs-wheel": "^0.0.39",
-        "react": "^19.2.6",
-        "react-dom": "^19.2.6",
         "react-i18next": "^17.0.8",
-        "react-redux": "^9.3.0",
-        "react-router-dom": "^7.15.1",
-        "redux": "^5.0.1",
         "redux-logger": "^3.0.6",
         "typescript": "^6.0.3",
         "uuid": "^14.0.0",
@@ -79,7 +74,7 @@
         "react-dom": "^19.2.0",
         "react-redux": "^8.0.5",
         "react-router-dom": "^7.0.2",
-        "redux": "^4.2.1",
+        "redux": "^5.0.1",
         "uuid": "^14.0.0"
     },
     "dependencies": {
