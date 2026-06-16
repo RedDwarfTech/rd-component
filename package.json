@@ -1,6 +1,6 @@
 {
     "name": "rd-component",
-    "version": "0.1.192",
+    "version": "0.1.193",
     "type": "module",
     "repository": "github:RedDwarfTech/rd-component",
     "bugs": {
@@ -19,9 +19,9 @@
             "types": "./dist/index.d.ts",
             "import": "./dist/rd-component.es.js"
         },
-        "./dist/style.css": {
-            "import": "./dist/style.css",
-            "require": "./dist/style.css"
+        "./dist/rd-component.css": {
+            "import": "./dist/rd-component.css",
+            "require": "./dist/rd-component.css"
         }
     },
     "scripts": {
