@@ -1,5 +1,6 @@
 import React from "react";
 import "./Pay.css";
+import { useTranslation } from "react-i18next";
 
 export type PayProps = {
   payFormText: string;
@@ -9,6 +10,7 @@ export type PayProps = {
 };
 
 const Pay: React.FC<PayProps> = (props) => {
+  const { t } = useTranslation();
 
   const formText = props.payFormText;
   const priceText = props.price;
@@ -36,7 +38,7 @@ const Pay: React.FC<PayProps> = (props) => {
       <div id="pay-mask" className="pay-mask"></div>
       <div id="pay-popup" className="pay-pop">
         <div className="pay-container" id="main">
-          <div className="pay-money">支付金额&nbsp;&nbsp;<span id="pay_price">{priceText}¥</span></div>
+          <div className="pay-money">{t("pay_amount")}&nbsp;&nbsp;<span id="pay_price">{priceText}¥</span></div>
           <div>
             <div className="pay-img">
               <iframe srcDoc={formText}
@@ -49,10 +51,10 @@ const Pay: React.FC<PayProps> = (props) => {
           <p className="pay-paragraph">
             <img className="pay-scan"
               src="/addons/zzzy_idcard_pc/core/web/statics/images/site/icon-wechat.png"
-              alt="" />{payProvider}扫码支付
+              alt="" />{t("scan_to_pay", { provider: payProvider })}
           </p>
           <div className="pay-complete-action">
-            <button className="pay-complete-btn" onClick={props.onPayComplete}>支付完成</button>
+            <button className="pay-complete-btn" onClick={props.onPayComplete}>{t("pay_complete")}</button>
           </div>
         </div>
       </div>

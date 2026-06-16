@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { ResponseHandler } from 'rdjs-wheel';
 import { AnyAction, Store } from 'redux';
 import UserService from '@/service/user/UserService';
+import { useTranslation } from "react-i18next";
 
 interface IRegProp {
     appId: string;
@@ -15,6 +16,7 @@ interface IRegProp {
 }
 
 const RdReg: React.FC<IRegProp> = (props: IRegProp) => {
+    const { t } = useTranslation();
 
     const fpPromise = FingerprintJS.load();
     const phoneInputRef = useRef(null);
@@ -26,27 +28,27 @@ const RdReg: React.FC<IRegProp> = (props: IRegProp) => {
         e.preventDefault();
         if (!phoneInputRef.current || (phoneInputRef.current as HTMLInputElement).value.length === 0) {
             debugger
-            toast("请输入用户名!");
+            toast(t("please_enter_username"));
             return;
         }
         if (!passwordInputRef.current || (passwordInputRef.current as HTMLInputElement).value.length === 0) {
-            toast("请输入密码!");
+            toast(t("please_enter_password"));
             return;
         }
         let pwd = (passwordInputRef.current as HTMLInputElement).value;
         let reg = /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[`~!@#$%^&*()-=_+;':",./<>?])(?=\S+$).{6,32}$/;
         let pass = reg.test(pwd);
         if(!pass){
-            toast("密码必须包含字母、数字和特殊符号且长度是6-32位!");
+            toast(t("password_requirements"));
             return;
         }
         if (!passwordReinputRef.current || (passwordReinputRef.current as HTMLInputElement).value.length === 0) {
-            toast("请输入密码!");
+            toast(t("please_enter_password"));
             return;
         }
         let reinputPwd = (passwordReinputRef.current as HTMLInputElement).value;
         if(pwd != reinputPwd) {
-            toast("输入密码不一致!");
+            toast(t("password_mismatch"));
             return;
         }
         let values = {
@@ -67,7 +69,7 @@ const RdReg: React.FC<IRegProp> = (props: IRegProp) => {
             };
             UserService.userReg(params, props.store, props.regUrl).then((res: any) => {
                 if (ResponseHandler.responseSuccess(res)) {
-                    toast.success("注册成功");
+                    toast.success(t("register_success"));
                     navigate("/user/login");
                 } else {
                     toast.error(res.msg);
@@ -80,23 +82,23 @@ const RdReg: React.FC<IRegProp> = (props: IRegProp) => {
         <div className={styles.regContainer}>
             <div className={styles.regForm}>
                 <form method="post" className={styles.loginElement} onSubmit={(e) => handlePhoneReg(e)}>
-                    <h5>注册</h5>
+                    <h5>{t("register_title")}</h5>
                     <div className={styles.userName}>
                         <select id="countryCode" className={styles.countryCodeSelect}>
                             <option value="+86">+86</option>
                             <option value="+1">+1</option>
                         </select>
-                        <input type="text" ref={phoneInputRef} id="phone" placeholder="请输入手机号码" />
+                        <input type="text" ref={phoneInputRef} id="phone" placeholder={t("placeholder_phone")} />
                     </div>
                     <div className={styles.password}>
-                        <input type="password" ref={passwordInputRef} placeholder="密码" name="p"></input>
+                        <input type="password" ref={passwordInputRef} placeholder={t("placeholder_password")} name="p"></input>
                     </div>
                     <div className={styles.password}>
-                        <input type="password" ref={passwordReinputRef} placeholder="再次输入密码" name="p"></input>
+                        <input type="password" ref={passwordReinputRef} placeholder={t("placeholder_password_confirm")} name="p"></input>
                     </div>
                     <div className={styles.operate}>
-                        <button className={styles.loginButton} type="submit">注册</button>
-                        <a href="/user/login">已经有账号，去登录</a>
+                        <button className={styles.loginButton} type="submit">{t("register_submit")}</button>
+                        <a href="/user/login">{t("already_have_account")}</a>
                     </div>
                 </form>
             </div>

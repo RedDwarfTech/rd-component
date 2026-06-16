@@ -14,6 +14,7 @@ import OrderService from "@/service/order/OrderService";
 import { BaseMethods, RequestHandler, ResponseHandler } from "rdjs-wheel";
 import UserService from "@/service/user/UserService";
 import { IOrder } from "@/models/pay/IOrder";
+import { useTranslation } from "react-i18next";
 
 interface IGoodsProp {
   appId: string;
@@ -30,6 +31,7 @@ const Goods: React.FC<IGoodsProp> = ({
   reqUrl,
   lang
 }) => {
+  const { t } = useTranslation();
 
   const { iapproducts } = useSelector((state: any) => state.rdRootReducer.iapproduct);
   const { createdOrder } = useSelector((state: any) => state.rdRootReducer.pay);
@@ -95,7 +97,7 @@ const Goods: React.FC<IGoodsProp> = ({
             <ul>
               {vipItems(item.description)}
             </ul>
-            <button onClick={() => handlePay(item)}>立即订阅</button>
+            <button onClick={() => handlePay(item)}>{t("subscribe_now")}</button>
           </div>);
       });
     return productSubList;
@@ -114,7 +116,7 @@ const Goods: React.FC<IGoodsProp> = ({
 
   const payComplete = () => {
     if (!createdOrderInfo || !createdOrderInfo.orderId) {
-      toast.error("未找到订单信息");
+      toast.error(t("order_not_found"));
       return;
     }
     const orderId = createdOrderInfo.orderId;
@@ -129,10 +131,10 @@ const Goods: React.FC<IGoodsProp> = ({
           UserService.loadCurrUser(true, refreshUrl);
           RequestHandler.handleWebAccessTokenExpire();
         } else {
-          toast.warning("检测到订单当前未支付，请稍后再次确认");
+          toast.warning(t("order_unpaid_warning"));
         }
       } else {
-        toast.warning("订单检测失败");
+        toast.warning(t("order_check_failed"));
       }
     });
   }
@@ -143,7 +145,7 @@ const Goods: React.FC<IGoodsProp> = ({
         {productSubMenu(products)}
       </div>
       <div className={styles.goodsDivider}></div>
-      <Pay payFormText={payFrame} price={currentProduct?.price!} payProvider={"支付宝"} onPayComplete={payComplete}></Pay>
+      <Pay payFormText={payFrame} price={currentProduct?.price!} payProvider={t("alipay")} onPayComplete={payComplete}></Pay>
     </div>
   );
 }

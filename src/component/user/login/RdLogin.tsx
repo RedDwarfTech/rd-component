@@ -8,6 +8,7 @@ import { ResponseHandler } from "rdjs-wheel";
 import { AnyAction, Store } from "redux";
 import UserService from "@/service/user/UserService";
 import Turnstile, { useTurnstile } from "react-turnstile";
+import { useTranslation } from "react-i18next";
 
 interface ILoginProp {
   appId: string;
@@ -18,6 +19,7 @@ interface ILoginProp {
 }
 
 const RdLogin: React.FC<ILoginProp> = (props: ILoginProp) => {
+  const { t } = useTranslation();
   const fpPromise = FingerprintJS.load();
   const [activeTab, setActiveTab] = useState<String>("");
   const [cfVerifyToken, setCfVerifyToken] = useState<String>("");
@@ -69,14 +71,14 @@ const RdLogin: React.FC<ILoginProp> = (props: ILoginProp) => {
       (phoneInputRef.current as HTMLInputElement).value.length === 0
     ) {
       debugger;
-      toast("请输入用户名!");
+      toast(t("please_enter_username"));
       return;
     }
     if (
       !passwordInputRef.current ||
       (passwordInputRef.current as HTMLInputElement).value.length === 0
     ) {
-      toast("请输入密码!");
+      toast(t("please_enter_password"));
       return;
     }
     let values = {
@@ -144,7 +146,7 @@ const RdLogin: React.FC<ILoginProp> = (props: ILoginProp) => {
           userWechatQrCodeLogin();
         }}
       >
-        微信扫码登录
+        {t("login_wechat_qr")}
       </button>);
     }
   }
@@ -160,7 +162,7 @@ const RdLogin: React.FC<ILoginProp> = (props: ILoginProp) => {
               openCity(e, "phone");
             }}
           >
-            手机号登录
+            {t("login_phone")}
           </button>
           {renderWechatLogins()}
           <button
@@ -169,11 +171,11 @@ const RdLogin: React.FC<ILoginProp> = (props: ILoginProp) => {
               userAlipayQrCodeLogin();
             }}
           >
-            支付宝扫码登录
+            {t("login_alipay_qr")}
           </button>
         </div>
         <div id="phone" className={styles.tabcontent}>
-          <h5>登录</h5>
+          <h5>{t("login_title")}</h5>
           <form
             method="post"
             className={styles.loginElement}
@@ -188,14 +190,14 @@ const RdLogin: React.FC<ILoginProp> = (props: ILoginProp) => {
                 type="text"
                 ref={phoneInputRef}
                 id="phone"
-                placeholder="请输入手机号码"
+                placeholder={t("placeholder_phone")}
               />
             </div>
             <div className={styles.password}>
               <input
                 type="password"
                 ref={passwordInputRef}
-                placeholder="密码"
+                placeholder={t("placeholder_password")}
                 name="p"
               ></input>
             </div>
@@ -210,12 +212,12 @@ const RdLogin: React.FC<ILoginProp> = (props: ILoginProp) => {
             </div>
             <div className={styles.operate}>
               <button className={styles.loginButton} type="submit">
-                登录
+                {t("login_submit")}
               </button>
             </div>
             <div className={styles.handleSituation}>
-              <a href="/user/reg">没有账号，去注册</a>
-              <a href="/userpage/pwd/retrieve">忘记密码？</a>
+              <a href="/user/reg">{t("no_account_register")}</a>
+              <a href="/userpage/pwd/retrieve">{t("forgot_password")}</a>
             </div>
           </form>
         </div>
