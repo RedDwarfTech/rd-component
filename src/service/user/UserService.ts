@@ -81,7 +81,7 @@ export const UserService = {
     },
     doSendVerifyCode: (params: any, url: string, store: Store<any, AnyAction>) => {
         const config = {
-            method: 'post',
+            method: 'put',
             url: url,
             data: JSON.stringify(params)
         };
