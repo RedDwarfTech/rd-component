@@ -9,11 +9,12 @@ import { v4 as uuid } from 'uuid';
 import PayService from "@/service/pay/PayService";
 import { AnyAction, Store } from "redux";
 import withConnect from "../hoc/withConnect";
-import Pay from "../pay/Pay";
+import Pay, { PayProvider } from "../pay/Pay";
 import OrderService from "@/service/order/OrderService";
 import { BaseMethods, RequestHandler, ResponseHandler } from "rdjs-wheel";
 import UserService from "@/service/user/UserService";
 import { IOrder } from "@/models/pay/IOrder";
+import { useTranslation } from "react-i18next";
 
 interface IGoodsProp {
   appId: string;
@@ -30,6 +31,7 @@ const Goods: React.FC<IGoodsProp> = ({
   reqUrl,
   lang
 }) => {
+  const { t } = useTranslation();
 
   const { iapproducts } = useSelector((state: any) => state.rdRootReducer.iapproduct);
   const { createdOrder } = useSelector((state: any) => state.rdRootReducer.pay);
@@ -37,6 +39,14 @@ const Goods: React.FC<IGoodsProp> = ({
   const [createdOrderInfo, setCreatedOrderInfo] = useState<IOrder>();
   const [products, setProducts] = useState<IapProduct[]>([]);
   const [currentProduct, setCurrentProduct] = useState<IapProduct>();
+  const [pendingProduct, setPendingProduct] = useState<IapProduct>();
+  const [payProvider, setPayProvider] = useState<PayProvider>('alipay');
+  const [multiPlatformPay, setMultiPlatformPay] = useState(false);
+
+  React.useEffect(() => {
+    let multiPlatformPayFlag = localStorage.getItem("multiPlatformPay");
+    setMultiPlatformPay(!!multiPlatformPayFlag && Boolean(multiPlatformPayFlag) === true);
+  }, []);
 
   React.useEffect(() => {
     getGoods();
@@ -66,6 +76,7 @@ const Goods: React.FC<IGoodsProp> = ({
     const modal = document.getElementById('pay-popup');
     if (modal && !modal.contains(e.target)) {
       setPayFrame('');
+      setPendingProduct(undefined);
     }
   };
 
@@ -74,11 +85,26 @@ const Goods: React.FC<IGoodsProp> = ({
   }
 
   const handlePay = (row: any) => {
-    let param = {
-      productId: Number(row.id)
-    };
     setCurrentProduct(row);
-    PayService.doPay(param, store);
+    if (multiPlatformPay) {
+      setPayFrame('');
+      setPendingProduct(row);
+    } else {
+      setPayProvider('alipay');
+      PayService.doPay({
+        productId: Number(row.id)
+      }, store);
+    }
+  };
+
+  const handleSelectProvider = (provider: PayProvider) => {
+    if (!pendingProduct) {
+      return;
+    }
+    setPayProvider(provider);
+    PayService.doPay({
+      productId: Number(pendingProduct.id)
+    }, store, provider);
   };
 
   const productSubMenu = (serverDataSource: IapProduct[]) => {
@@ -95,7 +121,7 @@ const Goods: React.FC<IGoodsProp> = ({
             <ul>
               {vipItems(item.description)}
             </ul>
-            <button onClick={() => handlePay(item)}>立即订阅</button>
+            <button onClick={() => handlePay(item)}>{t("subscribe_now")}</button>
           </div>);
       });
     return productSubList;
@@ -114,7 +140,7 @@ const Goods: React.FC<IGoodsProp> = ({
 
   const payComplete = () => {
     if (!createdOrderInfo || !createdOrderInfo.orderId) {
-      toast.error("未找到订单信息");
+      toast.error(t("order_not_found"));
       return;
     }
     const orderId = createdOrderInfo.orderId;
@@ -123,16 +149,17 @@ const Goods: React.FC<IGoodsProp> = ({
         if (Number(resp.result.orderStatus) === 1) {
           setPayFrame('');
           setCreatedOrderInfo(undefined);
+          setPendingProduct(undefined);
           if (!refreshUrl || refreshUrl.length === 0) {
             return;
           }
           UserService.loadCurrUser(true, refreshUrl);
           RequestHandler.handleWebAccessTokenExpire();
         } else {
-          toast.warning("检测到订单当前未支付，请稍后再次确认");
+          toast.warning(t("order_unpaid_warning"));
         }
       } else {
-        toast.warning("订单检测失败");
+        toast.warning(t("order_check_failed"));
       }
     });
   }
@@ -143,7 +170,14 @@ const Goods: React.FC<IGoodsProp> = ({
         {productSubMenu(products)}
       </div>
       <div className={styles.goodsDivider}></div>
-      <Pay payFormText={payFrame} price={currentProduct?.price!} payProvider={"支付宝"} onPayComplete={payComplete}></Pay>
+      <Pay
+        payFormText={payFrame}
+        price={currentProduct?.price!}
+        payProvider={payProvider === 'wechat' ? t("wechat") : t("alipay")}
+        onPayComplete={payComplete}
+        showPlatformSelect={multiPlatformPay && !!pendingProduct}
+        onSelectProvider={handleSelectProvider}
+      ></Pay>
     </div>
   );
 }

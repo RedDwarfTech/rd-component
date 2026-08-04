@@ -24,7 +24,7 @@ export default defineConfig({
         assetsDir: 'src/assets',
         sourcemap: true,
         rollupOptions: {
-            external: ['react-dom', 'styled-components','react-router-dom','react-redux','redux','react/jsx-runtime'],
+            external: ['react-dom', 'styled-components','react-router-dom','react-redux','redux','react/jsx-runtime','react-i18next','i18next'],
             output: {
                 globals: {
                     react: 'React',

@@ -29,6 +29,8 @@ import RdReg from "./component/user/reg/RdReg";
 import { Order } from "./models/order/Order";
 import { Dictionary, orderStatus } from "./models/common/enumn/Dictionary";
 import { OrderReq } from "./models/order/OrderReq";
+import { rdComponentResources } from "./i18n/resources";
+import { getOrderStatusLabel } from "./i18n/getOrderStatusLabel";
 
 export {
     CommonPage,
@@ -55,7 +57,9 @@ export {
     countryCodes,
     RdLogin,
     RdReg,
-    orderStatus
+    orderStatus,
+    rdComponentResources,
+    getOrderStatusLabel
 };
 
 export type { 
