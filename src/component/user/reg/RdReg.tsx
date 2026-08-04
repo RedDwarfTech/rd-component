@@ -160,12 +160,11 @@ const RdReg: React.FC<IRegProp> = (props: IRegProp) => {
     return (
         <div className={styles.regContainer}>
             <div className={styles.regForm}>
-<<<<<<< HEAD
                 <div className={styles.regTabs}>
-                    <div className={styles.tablinks}>注册</div>
+                    <div className={styles.tablinks}>{t("register_title")}</div>
                 </div>
                 <div className={styles.tabcontent}>
-                    <h5>注册</h5>
+                    <h5>{t("register_title")}</h5>
                     <form method="post" className={styles.loginElement} onSubmit={(e) => handlePhoneReg(e)}>
                     <div className={styles.phoneInputGroup}>
                         <select
@@ -181,17 +180,8 @@ const RdReg: React.FC<IRegProp> = (props: IRegProp) => {
                             ref={phoneInputRef}
                             id="phone"
                             className={styles.phoneInput}
-                            placeholder="请输入手机号码"
+                            placeholder={t("placeholder_phone")}
                         />
-=======
-                <form method="post" className={styles.loginElement} onSubmit={(e) => handlePhoneReg(e)}>
-                    <h5>{t("register_title")}</h5>
-                    <div className={styles.userName}>
-                        <select id="countryCode" className={styles.countryCodeSelect}>
-                            <option value="+86">+86</option>
-                            <option value="+1">+1</option>
-                        </select>
-                        <input type="text" ref={phoneInputRef} id="phone" placeholder={t("placeholder_phone")} />
                     </div>
                     <div className={styles.verifyCodeRow}>
                         <input
@@ -212,7 +202,6 @@ const RdReg: React.FC<IRegProp> = (props: IRegProp) => {
                                 {t("get_verify_code")}
                             </button>
                         )}
->>>>>>> 04175645ea90020af87b2e9021f77d17189ff84b
                     </div>
                     <div className={styles.password}>
                         <input type="password" ref={passwordInputRef} placeholder={t("placeholder_password")} name="p"></input>

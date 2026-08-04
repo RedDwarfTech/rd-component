@@ -11,20 +11,13 @@
 
 .regForm {
     width: 500px;
-<<<<<<< HEAD
-    min-height: 320px;
+    min-height: 420px;
     height: auto;
+    padding-bottom: 20px;
     border-radius: var(--login-border-radius);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     background-color: #fff;
     overflow: hidden;
-=======
-    min-height: 420px;
-    height: auto;
-    padding-bottom: 20px;
-    border-radius: var(--login-border-radius); /* 设置圆角半径 */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* 添加阴影效果 */
->>>>>>> 04175645ea90020af87b2e9021f77d17189ff84b
 }
 
 .regTabs {

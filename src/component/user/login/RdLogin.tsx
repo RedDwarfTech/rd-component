@@ -194,12 +194,8 @@ const RdLogin: React.FC<ILoginProp> = (props: ILoginProp) => {
                 type="text"
                 ref={phoneInputRef}
                 id="phone"
-<<<<<<< HEAD
                 className={styles.phoneInput}
-                placeholder="请输入手机号码"
-=======
                 placeholder={t("placeholder_phone")}
->>>>>>> 04175645ea90020af87b2e9021f77d17189ff84b
               />
             </div>
             <div className={styles.password}>
