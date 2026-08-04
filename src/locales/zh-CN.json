@@ -5,6 +5,7 @@
   "order_unpaid_warning": "检测到订单当前未支付，请稍后再次确认",
   "order_check_failed": "订单检测失败",
   "alipay": "支付宝",
+  "wechat": "微信支付",
   "pay_amount": "支付金额",
   "scan_to_pay": "{{provider}}扫码支付",
   "pay_complete": "支付完成",

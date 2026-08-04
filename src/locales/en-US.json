@@ -5,6 +5,7 @@
   "order_unpaid_warning": "Payment not detected. Please confirm again later.",
   "order_check_failed": "Failed to verify order status",
   "alipay": "Alipay",
+  "wechat": "WeChat Pay",
   "pay_amount": "Payment Amount",
   "scan_to_pay": "Scan with {{provider}} to pay",
   "pay_complete": "Payment Complete",
