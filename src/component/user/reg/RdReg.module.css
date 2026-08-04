@@ -1,4 +1,7 @@
 .regContainer {
+    --login-border-radius: 16px;
+    --login-input-height: 44px;
+    --login-input-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -8,16 +11,15 @@
 
 .regForm {
     width: 500px;
-    height: 300px;
-    border-radius: var(--login-border-radius); /* 设置圆角半径 */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* 添加阴影效果 */
+    min-height: 320px;
+    height: auto;
+    border-radius: var(--login-border-radius);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    overflow: hidden;
 }
 
-.countryCodeSelect{
-    font-size: 16px;
-}
-
-.loginTabs {
+.regTabs {
     overflow: hidden;
     border: 1px solid #ccc;
     background-color: #f1f1f1;
@@ -25,31 +27,20 @@
     border-top-right-radius: var(--login-border-radius);
 }
 
-.loginTabs button {
-    background-color: inherit;
-    float: left;
-    border: none;
-    outline: none;
-    cursor: pointer;
+.tablinks {
+    font-size: 16px;
+    font-weight: 400;
     padding: 14px 16px;
-    transition: 0.3s;
-}
-
-.loginTabs button:hover {
-    background-color: #ddd;
-}
-
-.loginTabs button.active {
-    background-color: #ccc;
 }
 
 .tabcontent {
-    display: none;
-    padding: 6px 12px;
+    display: block;
+    padding: 6px 12px 24px;
     border: 1px solid #ccc;
     border-top: none;
     border-bottom-left-radius: var(--login-border-radius);
     border-bottom-right-radius: var(--login-border-radius);
+    background-color: #fff;
 }
 
 .loginElement {
@@ -59,63 +50,83 @@
     justify-content: center;
 }
 
-.userName {
+.phoneInputGroup {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     width: 80%;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    border-radius: var(--login-input-radius);
+    overflow: hidden;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+.phoneInputGroup:focus-within {
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.15);
+}
+
+.countryCodeSelect {
+    flex: 0 0 auto;
+    width: auto;
+    min-width: 72px;
+    height: var(--login-input-height);
+    padding: 0 28px 0 12px;
+    margin: 0;
+    border: none;
+    border-right: 1px solid #ccc;
+    border-radius: 0;
+    background-color: #f8f9fa;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M3 4.5L6 7.5L9 4.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    font-size: 16px;
+    line-height: var(--login-input-height);
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.phoneInput {
+    flex: 1;
+    min-width: 0;
+    height: var(--login-input-height);
+    padding: 0 12px;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    font-size: 16px;
+    outline: none;
+    box-sizing: border-box;
 }
 
 .password {
     width: 80%;
-    align-items: center;
-}
-
-.userName select {
-    width: 20%;
-    padding: 6px;
-    border: 1px solid #ccc;
-    height: 30px;
     margin-top: 20px;
-    border-width: 1px;
-    height: 44px;
-    border-top-left-radius: 15px;
-    border-bottom-left-radius: 15px;
-    border-right: 0px;
-}
-
-.userName input {
-    height: var(--login-input-height);
-    width: 75%;
-    padding: 6px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    margin-top: 20px;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-    font-size: 16px;
-}
-
-#countryCode {
-    margin-right: 10px;
-    padding: 6px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
 }
 
 .password input[type="password"] {
-    width: 95%;
-    padding: 6px;
-    border-radius: 5px;
+    width: 100%;
+    padding: 0 12px;
     border: 1px solid #ccc;
     height: var(--login-input-height);
-    margin-top: 20px;
-    border-radius: 15px;
+    border-radius: var(--login-input-radius);
     font-size: 16px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.password input[type="password"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.15);
 }
 
 .loginButton {
-    padding: 10px;
-    border-radius: 5px;
+    padding: 10px 20px;
+    border-radius: var(--login-input-radius);
     border: none;
     background-color: #007bff;
     color: #fff;

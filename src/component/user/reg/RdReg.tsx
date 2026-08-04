@@ -79,14 +79,28 @@ const RdReg: React.FC<IRegProp> = (props: IRegProp) => {
     return (
         <div className={styles.regContainer}>
             <div className={styles.regForm}>
-                <form method="post" className={styles.loginElement} onSubmit={(e) => handlePhoneReg(e)}>
+                <div className={styles.regTabs}>
+                    <div className={styles.tablinks}>注册</div>
+                </div>
+                <div className={styles.tabcontent}>
                     <h5>注册</h5>
-                    <div className={styles.userName}>
-                        <select id="countryCode" className={styles.countryCodeSelect}>
+                    <form method="post" className={styles.loginElement} onSubmit={(e) => handlePhoneReg(e)}>
+                    <div className={styles.phoneInputGroup}>
+                        <select
+                            id="countryCode"
+                            className={styles.countryCodeSelect}
+                            aria-label="国家区号"
+                        >
                             <option value="+86">+86</option>
                             <option value="+1">+1</option>
                         </select>
-                        <input type="text" ref={phoneInputRef} id="phone" placeholder="请输入手机号码" />
+                        <input
+                            type="text"
+                            ref={phoneInputRef}
+                            id="phone"
+                            className={styles.phoneInput}
+                            placeholder="请输入手机号码"
+                        />
                     </div>
                     <div className={styles.password}>
                         <input type="password" ref={passwordInputRef} placeholder="密码" name="p"></input>
@@ -98,7 +112,8 @@ const RdReg: React.FC<IRegProp> = (props: IRegProp) => {
                         <button className={styles.loginButton} type="submit">注册</button>
                         <a href="/user/login">已经有账号，去登录</a>
                     </div>
-                </form>
+                    </form>
+                </div>
             </div>
             <ToastContainer />
         </div>
